@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { SocialMediaData, GlobalData } from './home-page.models';
+import { SocialMediaData, MetaData } from './home-page.models';
 import { LayoutModes, KeyCodes } from '../../common/constants';
 import { getCurrentTrack } from '../player/player-selectors';
 import { 
@@ -14,7 +14,8 @@ const { useEffect, useState } = React;
 
 interface HomePageProps {
     socialMediaData: SocialMediaData[];
-    globalData: GlobalData;
+    siteMetadata: MetaData;
+    siteThumbnailData: any;
 };
 
 const initWindowResolution = {
@@ -29,7 +30,11 @@ const initLayoutOptions = {
 
 const initKeyPressed = false;
 
-const HomePage: React.FC<HomePageProps> = ({ globalData, socialMediaData }) => {
+const HomePage: React.FC<HomePageProps> = ({ 
+    siteMetadata, 
+    socialMediaData,
+    siteThumbnailData 
+}) => {
     const dispatch = useDispatch();
 
     const [windowResolution, setWindowResolution] = useState(initWindowResolution);
@@ -82,7 +87,8 @@ const HomePage: React.FC<HomePageProps> = ({ globalData, socialMediaData }) => {
         
     return (
         <HomePageLayout
-            globalData={globalData}
+            siteMetadata={siteMetadata}
+            siteThumbnailData={siteThumbnailData}
             className={`layout-${mode} columns${columnsNumber}`}
         >
             <h1>HomePage</h1>
