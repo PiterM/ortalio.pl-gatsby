@@ -10,6 +10,7 @@ import {
 } from '../../common/common-helpers';
 import { setKeyDownInitAction, setLayoutOptionsAction } from './home-page-actions';
 import HomePageLayout from '../../layouts/home-page-layout';
+import SocialIcons from '../../components/social-icons/social-icons';
 const { useEffect, useState } = React;
 
 interface HomePageProps {
@@ -91,6 +92,9 @@ const HomePage: React.FC<HomePageProps> = ({
             siteThumbnailData={siteThumbnailData}
             className={`layout-${mode} columns${columnsNumber}`}
         >
+            <SocialIcons
+                socialMediaData={socialMediaData}
+            />
             <h1>HomePage</h1>
         </HomePageLayout>
     );

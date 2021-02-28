@@ -10,9 +10,8 @@ export interface GraphNode {
 }
 
 interface SocialMedia {
-    url: string;
-    imageAltText: string;
-    imageSourceUrl: string;
+    ortalioSocialMediaField: any;
+    featuredImage: any;
 }
 
 export type SocialMediaData = SocialMedia;

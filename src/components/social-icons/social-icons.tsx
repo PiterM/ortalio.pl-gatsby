@@ -1,7 +1,21 @@
-import React from "react"
+import * as React from "react"
 import styled from '@emotion/styled';
-import { dimensions } from '../../Common/variables';
+import Image from 'gatsby-image';
+import { dimensions } from '../../common/variables';
 import { SocialMediaData } from '../../common/models';
+
+const SocialImage = styled(Image)({
+  '& picture img': {
+    objectPosition: 'left center !important',
+    transition: 'all 0s ease-out 0.1s !important',
+    maxWidth: 'none !important',
+    width: `${2 * dimensions.socialIcon.edge}px !important`,
+    height: `${dimensions.socialIcon.edge}px !important`
+  },
+  '&:hover picture img, & picture img:hover': {
+    objectPosition: `${-dimensions.socialIcon.edge}px center !important`
+  }
+});
 
 const StyledSocialIconsSection = styled.section`
   display: flex;
@@ -23,53 +37,31 @@ const StyledSocialIconsSection = styled.section`
     overflow: hidden;
   }
 
-  & .social-icon img {
-    object-position: left center;
-    -webkit-transition: all 0s ease-in-out 0s;
-    -moz-transition: all 0s ease-in-out 0s;
-    -o-transition: all 0s ease-in-out 0s;
-    transition: all 0s ease-out 0.1s !important;
-    max-width: none;
-    width: ${2 * dimensions.socialIcon.edge}px
-    height: ${dimensions.socialIcon.edge}px;
-  }
-
   & .social-icon:hover {
     opacity: 1;
-  }
-
-  & .social-icon:hover img,
-  & .social-icon img:hover {
-      object-position: -${dimensions.socialIcon.edge}px center;
   }
 `;
 
 interface SocialIconsOwnProps {
-    socialMediaData: SocialMediaData[];
+    socialMediaData: any[];
 }
 
 const SocialIcons: React.FC<SocialIconsOwnProps> = ({ socialMediaData }) => (
     <StyledSocialIconsSection>
-        {socialMediaData.map((item, key) => renderSocialIcon(key, item))}
+        {socialMediaData.map((item, key) => renderSocialIcon(key, item.node))}
     </StyledSocialIconsSection>
 );
 
 export function renderSocialIcon(key: number, item: SocialMediaData) {
   return (
     <a 
-      href={item.url} 
+      href={item.ortalioSocialMediaField.url} 
       target="_blank" 
       rel="noopener noreferrer"
       key={key} 
       className="social-icon"
     >
-      <img
-        alt={`${item.imageAltText}`}
-        title={`${item.imageAltText}`}
-        src={item.imageSourceUrl}
-        width={2 * dimensions.socialIcon.edge}
-        height={dimensions.socialIcon.edge}
-      />
+      <SocialImage fixed={item?.featuredImage?.node?.imageFile?.childImageSharp?.fixed} />
     </a>
   );
 }
