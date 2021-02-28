@@ -1,6 +1,6 @@
 import { PlayerActions } from './player-actions';
 import ACTION_TYPES from './player-action-types';
-import { PlayerState } from './player-state';
+import { PlayerState, TracksState } from './player-state';
 import { TrackPlayStatus } from '../track/track-models';
 import { LoopMode } from './player-constants';
 
@@ -20,8 +20,16 @@ export const playerReducer = (state: PlayerState = initPlayerState, action: Play
             const tracksFromApi = action.payload;
             let tracks: any = {};
             if (tracksFromApi.length > 0) {
-                tracksFromApi.forEach((item: any) => {
-                    tracks[item.node.id] = item.node;
+                tracksFromApi.forEach((item: any, index: number) => {
+                    const track: TracksState = {
+                        ...item.node,
+                        ...item.node.ortalioMediaField,
+                        index,
+                        featuredImage: item.node.featuredImage.node,
+                        ortalioMediaField: undefined,
+                        fieldGroupName: undefined
+                    }
+                    tracks[item.node.id] = track;
                 });
             }
             return { 

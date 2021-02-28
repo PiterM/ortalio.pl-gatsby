@@ -1,7 +1,7 @@
 require('typescript-require');
 
 let basePath;
-exports.onPreBootstrap = themeOptions => {
+exports.onPreBootstrap = () => {
   basePath = `/`;
 };
 
@@ -47,7 +47,7 @@ exports.createResolvers = ({
 
 exports.createPages = async ({ page, graphql, actions, reporter }) => {
   const { createPage } = actions;
-  const Page = require.resolve('./src/app/index.tsx');
+  const App = require.resolve('./src/app/app.tsx');
 
   const ortalioData = await graphql(`
     query {
@@ -131,7 +131,7 @@ exports.createPages = async ({ page, graphql, actions, reporter }) => {
 
   createPage({
     path: basePath,
-    component: Page,
+    component: App,
     context: { data }
   });
 };

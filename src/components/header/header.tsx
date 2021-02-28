@@ -1,9 +1,9 @@
 import * as React from 'react'
 import { connect } from 'react-redux';
 import styled from '@emotion/styled'
-import { colors, fonts } from '../../Common/variables';
+import { colors, fonts } from '../../common/variables';
 import { StoreState, LayoutOptionsState } from '../../store/StoreState';
-import './Header.scss';
+import './header.scss';
 
 const StyledHeaderDiv = styled.div`
   text-align: center;

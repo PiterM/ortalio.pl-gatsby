@@ -1,11 +1,9 @@
 import { navigate } from "gatsby";
-import { PageMode } from '../../common/models';
 import { put, ForkEffect, takeLatest, select } from "redux-saga/effects";
 import ACTION_TYPES from './player-action-types';
 import { playPauseTrack, stopPlayback } from "./player-actions";
 import { LoopMode } from "./player-constants";
 import { getLoopMode, getCurrentTrack, getTracks } from './player-selectors';
-import { getPageMode } from '../../common/global/global-selectors';
 
 const getNeighbourTrackId = (tracks: any, currentId: string, vector: number) => {
     const tracksArray: any = Object.values(tracks);
@@ -67,15 +65,8 @@ export function* decideWhatPlayNext() {
     }
 }
 
-export function* navigateToPlayingTrackPage() {
-    const { details: { ortalioMusicTrack: { url } }} = yield select(getCurrentTrack);
-    const pageMode = yield select(getPageMode);
-    pageMode === PageMode.TrackPage && navigate(url);
-}
-
 export function* watchPlayerActions(): IterableIterator<ForkEffect> {
     yield takeLatest(ACTION_TYPES.DECIDE_WHAT_PLAY_NEXT, decideWhatPlayNext);
     yield takeLatest(ACTION_TYPES.PLAY_NEXT_TRACK, playNextTrack);
     yield takeLatest(ACTION_TYPES.PLAY_PREVIOUS_TRACK, playPreviousTrack);
-    yield takeLatest(ACTION_TYPES.PLAY_PAUSE_TRACK, navigateToPlayingTrackPage);
 }
