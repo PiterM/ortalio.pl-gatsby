@@ -1,0 +1,19 @@
+.layout-mobile {
+    #main-grid {
+        margin-top: 10px;
+        grid-template-columns: 10fr;
+
+        .grid-flex {
+            width: 100%;
+
+        }
+    }
+}
+
+.layout-compact {
+    .track.selected {
+        .audio-content {
+            display: inline-block;
+        }
+    }
+}

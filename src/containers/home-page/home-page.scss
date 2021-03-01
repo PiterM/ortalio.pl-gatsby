@@ -1,0 +1,40 @@
+.columns4 #main-grid {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.columns3 #main-grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.columns2 #main-grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.layout-compact, .layout-mobile {
+    .audio-item .audio-content {
+        display: none;
+    }
+}
+
+.listen-header {
+    display: inline-block;
+    letter-spacing: 6px;
+    font-family: "Playfair Display", "Droid Serif", Georgia, "Times New Roman", Times, serif;
+    font-weight: 900;
+    font-size: 28px;
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    margin: 10px 0;
+    color: #2f2f2f;
+}
+
+.columns2 .listen-header {
+    margin-bottom: 0;
+}
+
+.columns1 .listen-header {
+    margin: 20px 0;
+    font-size: 20px;
+}
+  

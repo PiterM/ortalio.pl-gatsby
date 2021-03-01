@@ -103,6 +103,7 @@ const SoundcloudLink = styled.a({
 const TrackTitle = styled(Link)({
     letterSpacing: '2px',
     fontWeight: 900,
+    fontSize: '18px',
     height: '100%',
     backgroundColor: '#fff',
     padding: '0 20px',

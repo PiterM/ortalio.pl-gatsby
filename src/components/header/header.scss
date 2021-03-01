@@ -1,0 +1,19 @@
+@import '../../common/text-glitch.scss';
+
+.site-header:not(:active) {
+    &:hover {
+      // @include textGlitch("title-glitch", 17, black, #f9f7f1, green, yellow, 0, 0);
+    }
+}
+
+.columns2, .columns3, .columns4 {
+  .site-intro {
+    display: none !important;
+  }
+}
+
+.layout-mobile {
+  .site-header {
+    font-size: 40px;
+  }
+}
