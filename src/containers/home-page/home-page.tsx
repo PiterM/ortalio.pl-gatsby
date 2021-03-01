@@ -1,17 +1,35 @@
 import * as React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import styled from '@emotion/styled';
+import { dimensions } from '../../common/variables';
 import { SocialMediaData, MetaData } from './home-page.models';
 import { LayoutModes, KeyCodes } from '../../common/constants';
-import { getCurrentTrack } from '../player/player-selectors';
+import { getCurrentTrack, getTracks } from '../player/player-selectors';
 import { 
     getLayoutColumnsNumber, 
     getLayoutMode,
-    getItemsGraph,
 } from '../../common/common-helpers';
 import { setKeyDownInitAction, setLayoutOptionsAction } from './home-page-actions';
 import HomePageLayout from '../../layouts/home-page-layout';
 import SocialIcons from '../../components/social-icons/social-icons';
+import Tracks from '../tracks/tracks';
 const { useEffect, useState } = React;
+
+import './home-page.scss';
+
+const StyledPage = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 2fr);
+  text-align: center;
+  padding-bottom: ${dimensions.mediaPlayerHeight.mini}px;
+  margin-top: 50px;
+`;
+
+const NoTracksInfo = styled.p({
+    textAlign: 'center',
+    width: '100%',
+    marginTop: 100
+});
 
 interface HomePageProps {
     socialMediaData: SocialMediaData[];
@@ -34,7 +52,7 @@ const initKeyPressed = false;
 const HomePage: React.FC<HomePageProps> = ({ 
     siteMetadata, 
     socialMediaData,
-    siteThumbnailData 
+    siteThumbnailData,
 }) => {
     const dispatch = useDispatch();
 
@@ -43,6 +61,7 @@ const HomePage: React.FC<HomePageProps> = ({
     const [keyPressed, setKeyPressed] = useState(initKeyPressed);
 
     const currentTrack = useSelector(getCurrentTrack);
+    const tracks = useSelector(getTracks);
 
     const onKeyDown = (event: any) => { 
         if (currentTrack?.details.id && Object.values(KeyCodes).includes(event.keyCode)) {
@@ -85,6 +104,7 @@ const HomePage: React.FC<HomePageProps> = ({
     }, []);
 
     const { mode, columnsNumber} = layoutOptions;
+    const noTracks = !tracks || tracks.length === 0;
         
     return (
         <HomePageLayout
@@ -95,7 +115,19 @@ const HomePage: React.FC<HomePageProps> = ({
             <SocialIcons
                 socialMediaData={socialMediaData}
             />
-            <h1>HomePage</h1>
+            <h2 className="listen-header">Click to play:</h2>
+
+            { noTracks 
+                ?   <NoTracksInfo>Sorry. No content here yet.</NoTracksInfo>
+                :   <StyledPage 
+                        id="main-grid"
+                    >
+                        <Tracks 
+                            tracks={tracks} 
+                            columnsNumber={columnsNumber}
+                        /> 
+                    </StyledPage>
+            }
         </HomePageLayout>
     );
 };

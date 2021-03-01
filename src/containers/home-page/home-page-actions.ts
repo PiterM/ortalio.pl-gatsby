@@ -37,7 +37,7 @@ export interface SetItemsGraphAction {
   type: ACTION_TYPE.SET_ITEMS_GRAPH;
 }
 
-export const setItemsGraphSuccessAction = (payload: ItemsGraphState): SetItemsGraphAction => ({
+export const setItemsGraphAction = (payload: ItemsGraphState): SetItemsGraphAction => ({
   payload,
   type: ACTION_TYPE.SET_ITEMS_GRAPH
 });
