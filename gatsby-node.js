@@ -71,7 +71,7 @@ exports.createPages = async ({ page, graphql, actions, reporter }) => {
                   sourceUrl(size: THUMBNAIL)
                   imageFile {
                     childImageSharp {
-                      fixed(width: 30, height: 30) {
+                      fixed(width: 100, height: 100) {
                         width
                         height
                         src

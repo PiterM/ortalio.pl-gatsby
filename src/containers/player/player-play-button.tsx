@@ -4,7 +4,7 @@ import { getCurrentTrack } from './player-selectors';
 import { playPauseTrack } from './player-actions';
 import styled from '@emotion/styled';
 import { TrackPlayStatus } from '../track/track-models';
-import PlayPauseButton from '../../components/play-button-layer';
+import PlayPauseButton from '../../components/play-button/play-button';
 
 const PlayPauseButtonContainer = styled.div({
     position: 'relative',

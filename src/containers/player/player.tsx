@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
-import { timeFormatHelper } from '../../common/timeFormatHelper';
-import { trackTitleHelper } from '../../common/trackTitleHelper';
+import styles from '../../gatsby-plugin-theme-ui'
+import { timeFormatHelper } from '../../common/common-helpers';
 import { getCurrentTrack, getPlayerMuted, getLoopMode } from './player-selectors';
-import { getCartItems } from '../cart/cart-selectors';
 import { 
     playPauseTrackSuccess, 
     playPauseTrackFailure, 
@@ -16,15 +15,13 @@ import {
 } from './player-actions';
 import PlayerPlayPauseButton from './player-play-button';
 import PlayerProgressSlider from './player-bar';
-import CartButton from '../../components/cart-button';
 import styled from '@emotion/styled';
-import styles from '../../gatsby-plugin-theme-ui/index';
 import { LoopMode, NextPreviousTrackMode } from './player-constants';
 import PlayerNextPreviousTrackButton from './player-next-previous-button';
 import Img from 'gatsby-image';
 import Link from 'gatsby-link';
 const { useEffect, useState } = React;
-const { colors, images } = styles;
+const { images, colors } = styles;
 
 const PlayerContainer = styled.div({
     position: 'fixed',
@@ -115,9 +112,6 @@ const TrackTitle = styled(Link)({
     textAlign: 'center',
     textDecoration: 'none',
     transition: 'all 0.5s ease',
-    ":hover": {
-        color: colors.cartButton,
-    }
 });
 
 const CartAndCloseItems = styled.div({
@@ -144,16 +138,11 @@ const ClosePlayerIcon = styled.div({
     }
 });
 
-const CartButtonContainer = styled.div({
-    width: 70,
-    height: 70
-});
-
 interface LoopButtonProps {
     mode: LoopMode;
-  }
+}
   
-  const LoopButton = styled.span(({ mode }: LoopButtonProps) => {
+const LoopButton = styled.span(({ mode }: LoopButtonProps) => {
     let icon, opacity;
     switch (mode) {
       case (LoopMode.LoopOne): 
@@ -187,13 +176,15 @@ const Player: React.FC = () => {
     }
 
     const currentTrack = useSelector(getCurrentTrack);
-    const items = useSelector(getCartItems);
     const loopMode = useSelector(getLoopMode);
     const playerMuted = useSelector(getPlayerMuted);
     const [trackInProgress, setTrackInProgress] = useState(false);
     const [playerRendered, setPlayerRendered] = useState(false);
-    const previewUrl = currentTrack?.details?.ortalioMusicTrack?.previewUrl;
-    const waveformUrl = currentTrack?.details?.ortalioMusicTrack?.waveformUrl;
+    
+    const soundcloudUrl = currentTrack?.details?.soundcloudUrl;
+    const youtubeUrl = currentTrack?.details?.youtubeUrl;
+    const previewUrl = 'https://soundcloud.com/ortaliomusic/evening-dub-cinematic-groovy';
+        //soundcloudUrl || youtubeUrl;
     const trackId = currentTrack?.details?.id;
     const seeking = currentTrack?.progress?.seeking;
     const dispatch = useDispatch();
@@ -245,20 +236,11 @@ const Player: React.FC = () => {
 
     const { progress, playing, paused, actionPending } = currentTrack;
     const playerClass = playing || paused ? 'player-visible' : undefined;
-    const { ortalioMusicTrack, id } = currentTrack.details;
     const { 
-        thumbnailImage: { sourceUrl, imageFile: { childImageSharp: { fixed }}}, 
-        shortTitle,
+        featuredImage: { imageFile: { childImageSharp: { fixed }}}, 
         title, 
-        url, 
-        description, 
-        digitalItemGuid,
-        free,
-        price
-    } = ortalioMusicTrack;
-
-    const trackIsAdded = items && items[id] !== undefined;
-    const storeItem = trackIsAdded && items[id];
+        slug,
+    } = currentTrack.details;
 
     let elapsedTime = '     ';
     let loadedTime = '/      ';
@@ -282,9 +264,7 @@ const Player: React.FC = () => {
                     </TrackThumbnailContainer>
 
                     <TrackTitleItem>
-                        <TrackTitle to={url}>
-                            {trackTitleHelper(shortTitle, title)}
-                        </TrackTitle>
+                        <TrackTitle to={slug}>{title}</TrackTitle>
                     </TrackTitleItem>
 
                     <PlayerControls>
@@ -313,28 +293,11 @@ const Player: React.FC = () => {
                             loadedTime={loadedTime}
                             disabled={actionPending}
                             volumeDisabled={actionPending || !trackInProgress}
-                            waveformUrl={waveformUrl}
                             muted={playerMuted || !trackInProgress}
                         />
                     </PlayerItemInline>
 
                     <CartAndCloseItems>
-                        <CartButtonContainer>
-                            <CartButton 
-                                trackIsAdded={trackIsAdded}
-                                uniqueId={storeItem && storeItem.uniqueId ? storeItem.uniqueId: ''}
-                                id={id}
-                                shortTitle={shortTitle}
-                                title={title}
-                                description={description}
-                                sourceUrl={sourceUrl}
-                                digitalItemGuid={digitalItemGuid}
-                                free={free}
-                                price={price}
-                                url={url}
-                                isTrackButton={false}
-                            />
-                        </CartButtonContainer>
                         <ClosePlayerIcon 
                             onClick={onStopPlayback}
                         />

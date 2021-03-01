@@ -95,35 +95,25 @@ const initState = {
   textVariant: audioItemHeaderTextVariants[0]
 };
 
-export class TrackHeader extends React.Component<TrackHeaderProps, TrackHeaderState> {
-  public state: TrackHeaderState = initState;
+export const TrackHeader: React.FC<TrackHeaderProps> = ({ index, title, shortDescription }) => {
 
-  shouldComponentUpdate(nextProps: TrackHeaderProps) {
-    return nextProps.index !== this.props.index;
-  }
+  // shouldComponentUpdate(nextProps: TrackHeaderProps) {
+  //   return nextProps.index !== this.props.index;
+  // }
 
-  componentDidMount() {
-    const { index } = this.props;
-    const textVariantIndex = index % audioItemHeaderTextVariants.length;
-    const textVariant = audioItemHeaderTextVariants[textVariantIndex];
-    this.setState({ textVariant });
-  }
-
-  render() {
-    const { title, shortDescription } = this.props;
-    const { textVariant } = this.state;
-
-    return (
-      <StyledTrackHeadline>
-        <TrackHeadlineTop textVariant={textVariant}>
-          <span>{title}</span>
-        </TrackHeadlineTop>
-        <TrackHeadlineBottom textVariant={textVariant}>
-          <span dangerouslySetInnerHTML={{ __html: shortDescription }} />
-        </TrackHeadlineBottom>
-      </StyledTrackHeadline>
-    );
-  }
+  const [textVariantIndex, setTextVariantIndex] = React.useState(index % audioItemHeaderTextVariants.length);
+  const textVariant = audioItemHeaderTextVariants[textVariantIndex];
+    
+  return (
+    <StyledTrackHeadline>
+      <TrackHeadlineTop textVariant={textVariant}>
+        <span>{title}</span>
+      </TrackHeadlineTop>
+      <TrackHeadlineBottom textVariant={textVariant}>
+        <span dangerouslySetInnerHTML={{ __html: shortDescription }} />
+      </TrackHeadlineBottom>
+    </StyledTrackHeadline>
+  );
 }
 
 export default TrackHeader;

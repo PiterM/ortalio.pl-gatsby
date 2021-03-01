@@ -38,7 +38,8 @@ export const colors = {
       'Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif',
     serif: '"Playfair Display", Georgia, "Times New Roman", Times, serif',
     monospace: 'Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace, monospace',
-    headline: '"Playfair Display", "Droid Serif", Georgia, "Times New Roman", Times, serif',
+    headline: '"Droid Serif", Georgia, "Times New Roman", Times, serif',
+    trackTitle: 'Georgia, Times, serif'
   }
   
   export const breakpoints = {
@@ -119,50 +120,35 @@ export const colors = {
   export const audioItemHeaderTextVariants = [
     {
       top: {
-        font: fonts.headline,
+        font: fonts.trackTitle,
         fontWeight: dimensions.fontWeight.semiBold,
         fontSize: dimensions.fontSize.title,
         fontStyle: 'italic',
         textTransform: 'none',
       },
       bottom: {
-        font: fonts.headline,
+        font: fonts.trackTitle,
         fontWeight: dimensions.fontWeight.bold,
-        fontSize: dimensions.fontSize.small,
+        fontSize: dimensions.fontSize.regular,
         fontStyle: 'normal',
         textTransform: 'uppercase',
       }
     },
     {
       top: {
-        font: fonts.headline,
+        font: fonts.trackTitle,
         fontWeight: dimensions.fontWeight.semiBold,
         fontSize: dimensions.fontSize.smallTitle,
         fontStyle: 'italic',
         textTransform: 'uppercase',
       },
       bottom: {
-        font: fonts.headline,
+        font: fonts.trackTitle,
         fontWeight: dimensions.fontWeight.bold,
         fontSize: dimensions.fontSize.regular,
         fontStyle: 'normal',
         textTransform: 'none',
       }
     },
-    {
-      top: {
-        font: fonts.headline,
-        fontSize: dimensions.fontSize.extraLarge,
-        fontStyle: 'normal',
-        textTransform: 'uppercase',
-      },
-      bottom: {
-        font: fonts.headline,
-        fontWeight: dimensions.fontWeight.semiBold,
-        fontSize: dimensions.fontSize.extraLarge,
-        fontStyle: 'italic',
-        textTransform: 'none',
-      }
-    }
   ];
   

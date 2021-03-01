@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from '@emotion/styled'
 import { colors, fonts } from '../../common/variables';
 import { StoreState, LayoutOptionsState } from '../../store/StoreState';
+import styles from '../../gatsby-plugin-theme-ui';
 import './header.scss';
 
 const StyledHeaderDiv = styled.div`
@@ -21,6 +22,7 @@ const StyledHeaderWeatherForcastBox = styled.div`
   line-height: 20px;
   display: inline-block;
   margin: 0 50px 20px -360px;
+  font-family: ${styles.fonts.body};
 `;
 
 const StyledHeaderTitle = styled.header`
@@ -51,6 +53,7 @@ const StyledSubHeader = styled.div`
   border-bottom: 2px solid #2f2f2f;
   border-top: 2px solid #2f2f2f;
   padding: 12px 0 12px 0;
+  font-family: ${styles.fonts.weatherForecast};
 `;
 
 interface HeaderOwnProps {

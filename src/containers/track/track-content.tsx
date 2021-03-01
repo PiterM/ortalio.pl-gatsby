@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 const StyledTrackText = styled.div`
   margin-top: 20px;
   text-align: center;
+  font-size: 16px;
 `;
 
 interface TrackTextProps {

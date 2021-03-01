@@ -5,7 +5,6 @@ import Slider from '@material-ui/core/Slider';
 import { VolumeUp, VolumeDown } from '@material-ui/icons';
 import styled from '@emotion/styled';
 import styles from '../../gatsby-plugin-theme-ui/index';
-import { getPlayerMuted } from './player-selectors';
 const { colors } = styles;
 const { useState } = React;
 
@@ -44,22 +43,10 @@ const Timer = styled.div({
   fontFamily: 'Space Mono, monospace'
 });
 
-interface PlayerSliderContainerProps {
-  waveformUrl: string;
-}
-
-const PlayerSliderContainer = styled.div(({ waveformUrl }: PlayerSliderContainerProps) => {
-  const background = waveformUrl 
-    ? `${colors.waveform} url('${waveformUrl}') center center no-repeat`
-    : `${colors.waveform}`;
-
-  return {
-    display: 'inline-grid',
-    alignContent: 'center',
-    background,
-    backgroundSize: '100% 100%',
-    height: '100%',
-  }
+const PlayerSliderContainer = styled.div({
+  display: 'inline-grid',
+  alignContent: 'center',
+  height: '100%',
 });
 
 interface PlayerProgressSliderProps {
@@ -68,11 +55,10 @@ interface PlayerProgressSliderProps {
     disabled: boolean;
     volumeDisabled: boolean;
     loadedTime: string;
-    waveformUrl: string;
     muted: boolean;
 }
 
-const PlayerProgressSlider: React.FC<PlayerProgressSliderProps> = ({ progress, elapsedTime, loadedTime, disabled, volumeDisabled, waveformUrl, muted }) => {
+const PlayerProgressSlider: React.FC<PlayerProgressSliderProps> = ({ progress, elapsedTime, loadedTime, disabled, volumeDisabled, muted }) => {
   const dispatch = useDispatch();
   const [percent, setPercent] = useState(0);
   const [mouseDown, setMouseDown] = useState(false);
@@ -101,9 +87,7 @@ const PlayerProgressSlider: React.FC<PlayerProgressSliderProps> = ({ progress, e
             /> 
         }
         </VolumeContainer>
-        <PlayerSliderContainer
-          waveformUrl={waveformUrl}
-        >
+        <PlayerSliderContainer>
           <PlayerSlider
               onChange={handleSliderChange}
               onMouseDown={handleMouseDown}

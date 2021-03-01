@@ -9,7 +9,7 @@ import {
     getLayoutColumnsNumber, 
     getLayoutMode,
 } from '../../common/common-helpers';
-import { setKeyDownInitAction, setLayoutOptionsAction } from './home-page-actions';
+import { setKeyDownInit, setLayoutOptions as setLayoutOptionsAction } from './home-page-actions';
 import HomePageLayout from '../../layouts/home-page-layout';
 import SocialIcons from '../../components/social-icons/social-icons';
 import Tracks from '../tracks/tracks';
@@ -68,7 +68,7 @@ const HomePage: React.FC<HomePageProps> = ({
             event.preventDefault();
         }
         if (!keyPressed) {
-            dispatch(setKeyDownInitAction(event.keyCode));
+            dispatch(setKeyDownInit(event.keyCode));
             setKeyPressed(true);
         }
     }

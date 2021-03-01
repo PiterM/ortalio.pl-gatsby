@@ -9,7 +9,7 @@ import {
   getRandomNumberFromString,
   isObjectEmpty
 } from '../../common/common-helpers';
-import { setItemsGraphAction } from '../home-page/home-page-actions';
+import { setItemsGraph } from '../home-page/home-page-actions';
 import Track from '../track/track';
 
 const StyledPageColumn = styled.div`
@@ -85,7 +85,7 @@ const Tracks: React.FC<TracksProps> = ({ tracks, columnsNumber }) => {
           columnIndices = [];
       }
 
-      dispatch(setItemsGraphAction(getItemsGraph(columns) as ItemsGraphState));
+      dispatch(setItemsGraph(getItemsGraph(columns) as ItemsGraphState));
       return result;
     } 
 
