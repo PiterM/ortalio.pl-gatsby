@@ -22,7 +22,7 @@ export default `
     font-family: ${fonts.serif};
     font-size: ${dimensions.fontSize.regular};
     color: ${colors.newspaperText};
-    background-color: ${colors.newspaperPaper};
+    background-color: ${colors.newspaperPaper} !important;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
   }

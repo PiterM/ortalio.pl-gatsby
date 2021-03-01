@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
-import styles from '../../gatsby-plugin-theme-ui'
+import styles from '../../gatsby-plugin-theme-ui';
+import * as variables from '../../common/variables';
 import { timeFormatHelper } from '../../common/common-helpers';
 import { getCurrentTrack, getPlayerMuted, getLoopMode } from './player-selectors';
 import { 
@@ -29,7 +30,7 @@ const PlayerContainer = styled.div({
     height: '100px',
     bottom: -100,
     left: 0,
-    background: `#efefef`,
+    background: variables.colors.newspaperPaper,
     border: '3px solid #fff',
     transition: 'all 0.3s ease-in-out',
     display: 'grid',
