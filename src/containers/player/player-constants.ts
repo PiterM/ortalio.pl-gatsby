@@ -8,3 +8,8 @@ export enum NextPreviousTrackMode {
     Next = 'Next',
     Previous = 'Previous'
 };
+
+export enum AudioSource {
+    Soundcloud = 'Soundcloud',
+    Youtube = 'Youtube'
+}

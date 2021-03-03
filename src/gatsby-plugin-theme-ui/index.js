@@ -14,6 +14,7 @@ export default merge(typography, {
     nextIcon: '/images/next-icon.svg',
     previousIcon: '/images/previous-icon.svg',
     soundcloudLogo: '/images/soundcloud-logo.png',
+    youtubeLogo: '/images/youtube-logo.png',
     playIndicator: '/images/play-indicator.svg',
     sandClock: 'images/sand-clock.svg'
   },

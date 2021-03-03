@@ -17,10 +17,11 @@ import {
 import PlayerPlayPauseButton from './player-play-button';
 import PlayerProgressSlider from './player-bar';
 import styled from '@emotion/styled';
-import { LoopMode, NextPreviousTrackMode } from './player-constants';
+import { LoopMode, NextPreviousTrackMode, AudioSource } from './player-constants';
 import PlayerNextPreviousTrackButton from './player-next-previous-button';
 import Img from 'gatsby-image';
 import Link from 'gatsby-link';
+import { isUnionType } from 'graphql';
 const { useEffect, useState } = React;
 const { images, colors } = styles;
 
@@ -34,7 +35,7 @@ const PlayerContainer = styled.div({
     border: '3px solid #fff',
     transition: 'all 0.3s ease-in-out',
     display: 'grid',
-    gridTemplateColumns: '0.5fr 3fr 1fr 0.5fr 5.5fr 1fr',
+    gridTemplateColumns: '0.5fr 3fr 1fr 0.5fr 5fr 2fr',
     "&.player-visible": {
         bottom: 0
     },
@@ -84,19 +85,70 @@ const TrackThumbnail = styled(Img)({
     left: 0,
 });
 
-const SoundcloudLink = styled.a({
-    opacity: 0,
-    background: `transparent url('${images.soundcloudLogo}') center center no-repeat`,
-    backgroundSize: '50% 50%',
+interface AudioSourceLinkProps {
+    audioSource: AudioSource;
+}
+
+const AudioSourceLink = styled.a(({ audioSource }: AudioSourceLinkProps) => {
+    let audioSourceLogo, backgroundSize;
+    switch (audioSource) {
+        case AudioSource.Soundcloud:
+            audioSourceLogo = images.soundcloudLogo;
+            backgroundSize = '60% 60%';
+            break;
+        default:
+            audioSourceLogo = images.youtubeLogo;
+            backgroundSize = '80%';
+    }
+
+    return {
+        opacity: 0,
+        background: `transparent url('${audioSourceLogo}') center center no-repeat`,
+        backgroundSize,
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        cursor: 'pointer',
+        transition: 'all 0.5s ease',
+        ":hover, :active": {
+            opacity: 1
+        }
+    }
+});
+
+const EmbedIconContainer = styled.div({
+    position: 'relative',
     width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    cursor: 'pointer',
-    transition: 'all 0.5s ease',
-    ":hover, :active": {
-        opacity: 1
+    height: '100%'
+});
+
+interface EmbedViewIconProps {
+    audioSource: AudioSource;
+}
+
+const EmbedViewIcon = styled.span(({ audioSource }: EmbedViewIconProps) => {
+    let audioSourceLogo, backgroundSize;
+    switch (audioSource) {
+        case AudioSource.Soundcloud:
+            audioSourceLogo = images.soundcloudLogo;
+            backgroundSize = '50%';
+            break;
+        default:
+            audioSourceLogo = images.youtubeLogo;
+            backgroundSize = '60%';
+    }
+
+    return {
+        width: '100%',
+        height: '100%',
+        background: `transparent url('${audioSourceLogo}') center center no-repeat`,
+        backgroundSize,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        cursor: 'pointer',
     }
 });
 
@@ -116,12 +168,12 @@ const TrackTitle = styled(Link)({
     transition: 'all 0.5s ease',
 });
 
-const CartAndCloseItems = styled.div({
+const CloseAndEmbedItems = styled.div({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    padding: '5px 5px 2px 0'
+    padding: '5px 5px 2px 0',
 });
 
 const ClosePlayerIcon = styled.div({
@@ -137,7 +189,7 @@ const ClosePlayerIcon = styled.div({
     },
     ":hover": {
         borderColor: '#000'
-    }
+    },
 });
 
 interface LoopButtonProps {
@@ -186,6 +238,10 @@ const Player: React.FC = () => {
     const soundcloudUrl = currentTrack?.details?.soundcloudUrl;
     const youtubeUrl = currentTrack?.details?.youtubeUrl;
     const previewUrl = 'https://soundcloud.com/ortaliomusic/evening-dub-cinematic-groovy';
+    const audioSource = soundcloudUrl && !youtubeUrl ? AudioSource.Soundcloud : AudioSource.Youtube;
+    // console.log('soundcloudUrl', soundcloudUrl);
+    // console.log('youtubeUrl', youtubeUrl);
+    // console.log('audioSource', audioSource);
         //soundcloudUrl || youtubeUrl;
     const trackId = currentTrack?.details?.id;
     const seeking = currentTrack?.progress?.seeking;
@@ -259,7 +315,8 @@ const Player: React.FC = () => {
                         <TrackThumbnailLink>
                             <TrackThumbnail fixed={fixed} />
                         </TrackThumbnailLink>
-                        <SoundcloudLink 
+                        <AudioSourceLink 
+                            audioSource={audioSource}
                             href={previewUrl}
                             target="_blank"
                         />
@@ -299,11 +356,16 @@ const Player: React.FC = () => {
                         />
                     </PlayerItemInline>
 
-                    <CartAndCloseItems>
+                    <CloseAndEmbedItems>
                         <ClosePlayerIcon 
                             onClick={onStopPlayback}
                         />
-                    </CartAndCloseItems>
+                        <EmbedIconContainer>
+                            <EmbedViewIcon 
+                                audioSource={audioSource}
+                            />
+                        </EmbedIconContainer>
+                    </CloseAndEmbedItems>
 
                 </PlayerContainer>
                 { playerRendered && previewUrl && 
