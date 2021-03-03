@@ -85,37 +85,13 @@ const TrackThumbnail = styled(Img)({
     left: 0,
 });
 
-interface AudioSourceLinkProps {
-    audioSource: AudioSource;
-}
-
-const AudioSourceLink = styled.a(({ audioSource }: AudioSourceLinkProps) => {
-    let audioSourceLogo, backgroundSize;
-    switch (audioSource) {
-        case AudioSource.Soundcloud:
-            audioSourceLogo = images.soundcloudLogo;
-            backgroundSize = '60% 60%';
-            break;
-        default:
-            audioSourceLogo = images.youtubeLogo;
-            backgroundSize = '80%';
-    }
-
-    return {
-        opacity: 0,
-        background: `transparent url('${audioSourceLogo}') center center no-repeat`,
-        backgroundSize,
-        width: '100%',
-        height: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        cursor: 'pointer',
-        transition: 'all 0.5s ease',
-        ":hover, :active": {
-            opacity: 1
-        }
-    }
+const AudioSourceLink = styled.a({
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    cursor: 'pointer',
 });
 
 const EmbedIconContainer = styled.div({
@@ -129,22 +105,15 @@ interface EmbedViewIconProps {
 }
 
 const EmbedViewIcon = styled.span(({ audioSource }: EmbedViewIconProps) => {
-    let audioSourceLogo, backgroundSize;
-    switch (audioSource) {
-        case AudioSource.Soundcloud:
-            audioSourceLogo = images.soundcloudLogo;
-            backgroundSize = '50%';
-            break;
-        default:
-            audioSourceLogo = images.youtubeLogo;
-            backgroundSize = '60%';
-    }
+    let audioSourceLogo = audioSource === AudioSource.Soundcloud 
+        ? images.soundcloudLogo
+        : images.youtubeLogo;
 
     return {
         width: '100%',
         height: '100%',
         background: `transparent url('${audioSourceLogo}') center center no-repeat`,
-        backgroundSize,
+        backgroundSize: '50%',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -316,7 +285,6 @@ const Player: React.FC = () => {
                             <TrackThumbnail fixed={fixed} />
                         </TrackThumbnailLink>
                         <AudioSourceLink 
-                            audioSource={audioSource}
                             href={previewUrl}
                             target="_blank"
                         />
