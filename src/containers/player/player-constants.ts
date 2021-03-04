@@ -13,3 +13,8 @@ export enum AudioSource {
     Soundcloud = 'Soundcloud',
     Youtube = 'Youtube'
 }
+
+export enum TimerMode {
+    ElapsedTime = 'ElapsedTime',
+    RemainingTime = 'RemainingTime'
+}

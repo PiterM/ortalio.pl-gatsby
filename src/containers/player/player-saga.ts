@@ -1,9 +1,9 @@
-import { navigate } from "gatsby";
 import { put, ForkEffect, takeLatest, select } from "redux-saga/effects";
 import ACTION_TYPES from './player-action-types';
-import { playPauseTrack, stopPlayback } from "./player-actions";
+import { PlayPauseTrack, playPauseTrack, stopPlayback } from "./player-actions";
 import { LoopMode } from "./player-constants";
 import { getLoopMode, getCurrentTrack, getTracks } from './player-selectors';
+import { setWindowLocationHash } from '../../common/common-helpers';
 
 const getNeighbourTrackId = (tracks: any, currentId: string, vector: number) => {
     const tracksArray: any = Object.values(tracks);
@@ -21,7 +21,8 @@ export function* playNeighbourTrack(tracks: any, currentId: string, getCalculate
     const newTrackId = getCalculatedTrackId(tracks, currentId);
     if (newTrackId) {
         yield put(playPauseTrack(currentId));
-        yield put(playPauseTrack(newTrackId));   
+        yield put(playPauseTrack(newTrackId)); 
+        yield scrollToPlayedTrack(newTrackId);
     } else {
         //not reached rather
         yield put(stopPlayback());
@@ -63,6 +64,12 @@ export function* decideWhatPlayNext() {
         default:
             yield put(stopPlayback());
     }
+}
+
+export function* scrollToPlayedTrack(newTrackId: string) {
+    const tracks = yield select(getTracks);
+    const newCurrentTrack = tracks[newTrackId];
+    newCurrentTrack?.slug && setWindowLocationHash(newCurrentTrack.slug);
 }
 
 export function* watchPlayerActions(): IterableIterator<ForkEffect> {

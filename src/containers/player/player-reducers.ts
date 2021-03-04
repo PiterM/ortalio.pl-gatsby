@@ -8,7 +8,7 @@ export const initPlayerState: PlayerState = {
     tracks: {},
     muted: false,
     currentTrack: undefined,
-    loopMode: LoopMode.Off
+    loopMode: LoopMode.LoopAll
 };
 
 export const playerReducer = (state: PlayerState = initPlayerState, action: PlayerActions) => {

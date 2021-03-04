@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ReactPlayer from 'react-player';
 import styles from '../../gatsby-plugin-theme-ui';
 import * as variables from '../../common/variables';
-import { timeFormatHelper } from '../../common/common-helpers';
+import { setWindowLocationHash, timeFormatHelper } from '../../common/common-helpers';
 import { getCurrentTrack, getPlayerMuted, getLoopMode } from './player-selectors';
 import { 
     playPauseTrackSuccess, 
@@ -20,8 +20,6 @@ import styled from '@emotion/styled';
 import { LoopMode, NextPreviousTrackMode, AudioSource } from './player-constants';
 import PlayerNextPreviousTrackButton from './player-next-previous-button';
 import Img from 'gatsby-image';
-import Link from 'gatsby-link';
-import { isUnionType } from 'graphql';
 const { useEffect, useState } = React;
 const { images, colors } = styles;
 
@@ -121,7 +119,7 @@ const EmbedViewIcon = styled.span(({ audioSource }: EmbedViewIconProps) => {
     }
 });
 
-const TrackTitle = styled(Link)({
+const TrackTitle = styled.p({
     letterSpacing: '2px',
     fontWeight: 900,
     fontSize: '18px',
@@ -135,6 +133,10 @@ const TrackTitle = styled(Link)({
     textAlign: 'center',
     textDecoration: 'none',
     transition: 'all 0.5s ease',
+    cursor: 'pointer',
+    ": hover": {
+        color: '#000'
+    }
 });
 
 const CloseAndEmbedItems = styled.div({
@@ -208,9 +210,6 @@ const Player: React.FC = () => {
     const youtubeUrl = currentTrack?.details?.youtubeUrl;
     const previewUrl = 'https://soundcloud.com/ortaliomusic/evening-dub-cinematic-groovy';
     const audioSource = soundcloudUrl && !youtubeUrl ? AudioSource.Soundcloud : AudioSource.Youtube;
-    // console.log('soundcloudUrl', soundcloudUrl);
-    // console.log('youtubeUrl', youtubeUrl);
-    // console.log('audioSource', audioSource);
         //soundcloudUrl || youtubeUrl;
     const trackId = currentTrack?.details?.id;
     const seeking = currentTrack?.progress?.seeking;
@@ -269,11 +268,13 @@ const Player: React.FC = () => {
         slug,
     } = currentTrack.details;
 
-    let elapsedTime = '     ';
+    let elapsedTime = '      ';
+    let remainingTime = elapsedTime;
     let loadedTime = '/      ';
     if (progress?.data?.playedSeconds) {
         loadedTime = ` / ${timeFormatHelper(Math.round(Number(duration)))}`;
         elapsedTime = timeFormatHelper(Math.round(Number(progress.data.playedSeconds)));
+        remainingTime = timeFormatHelper(Math.round(Number(duration - progress.data.playedSeconds)));
     }
 
     return (
@@ -291,7 +292,11 @@ const Player: React.FC = () => {
                     </TrackThumbnailContainer>
 
                     <TrackTitleItem>
-                        <TrackTitle to={slug}>{title}</TrackTitle>
+                        <TrackTitle
+                            onClick={() => setWindowLocationHash(slug)}
+                        >
+                            {title}
+                        </TrackTitle>
                     </TrackTitleItem>
 
                     <PlayerControls>
@@ -317,6 +322,7 @@ const Player: React.FC = () => {
                         <PlayerProgressSlider 
                             progress={Math.ceil(progress.fraction * 100)}
                             elapsedTime={elapsedTime}
+                            remainingTime={remainingTime}
                             loadedTime={loadedTime}
                             disabled={actionPending}
                             volumeDisabled={actionPending || !trackInProgress}

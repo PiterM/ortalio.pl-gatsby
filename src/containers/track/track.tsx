@@ -44,13 +44,6 @@ const StyledTrack = styled.section`
     height: 10px;
 
     animation: blinking 1.5s infinite;
-    @keyframes blinking {
-        0% { opacity: 0.8; };
-        49% { opacity: 0.8; };
-        60% { opacity: 0; };
-        99% { opacity: 0; }
-        100% { opacity: 0.8; }
-    }
   }
 
   &:hover .play-icon, &:active .play-icon, &.selected .play-icon {
@@ -70,10 +63,10 @@ const StyledTrack = styled.section`
     background: url('${images.playIndicator}') top left no-repeat;
   }
 
-  &:active, &.selected {
+  &.Playing, &.Loading, &:active, &.selected {
     border-top: 1px solid ${colors.newspaperText};
     border-bottom: 1px solid ${colors.newspaperText};
-    background-color #fff;
+    background-color: #fff;
     color: ${colors.black};
     -webkit-touch-callout: auto; /* iOS Safari */
     -webkit-user-select: auto; /* Safari */
@@ -85,7 +78,7 @@ const StyledTrack = styled.section`
 
   }
 
-  &.selected {
+  &.Playing, &.Loading, &.selected {
     cursor: text;
   }
 `;
@@ -120,12 +113,12 @@ const Track: React.FC<TrackProps> = ({
       trackClass = ` ${currentTrack.status}`;
     }
 
-    const onClick = React.useCallback(() => dispatch(playPauseTrack(id)), []);
+    const onTrackClick = () => !thisOneActive && dispatch(playPauseTrack(id));
     
     return (
       <StyledTrack
         className={`track${trackClass}`}
-        onClick={() => onClick()}
+        onClick={() => onTrackClick()}
         id={slug}
       >
         <span className="play-icon"></span>

@@ -26,6 +26,7 @@ const PlayerPlayPauseButton: React.FC<PlayerPlayPauseButtonProps> = ({ id }) => 
             <PlayPauseButton 
                 onClick={() => status !== TrackPlayStatus.Loading && dispatch(playPauseTrack(id))}
                 trackStatus={status}
+                blink={status === TrackPlayStatus.Paused}
             />
         </PlayPauseButtonContainer>
     );

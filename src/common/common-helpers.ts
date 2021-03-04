@@ -4,11 +4,6 @@ import { dimensions } from './variables';
 import { GraphNode } from './models';
 import { ItemsGraphState } from '../store/StoreState';
 
-export const setWindowLocationHash = (elementId: string) => {
-    const element = document.getElementById(elementId);
-    if (element) element.scrollIntoView();
-}
-
 export const getLayoutColumnsNumber = (resolution: WindowResolution) => {
     if (!resolution || !resolution.height || !resolution.width) {
         return dimensions.homePage.columnsNumber;
@@ -111,4 +106,9 @@ export const timeFormatHelper = (inputSeconds: number) => {
     const minutes = Math.floor(inputSeconds / 60);
     const seconds = inputSeconds % 60;
     return `${pad(minutes, 2)}:${pad(seconds, 2)}`;
+};
+
+export const setWindowLocationHash = (elementId: string) => {
+    const element = document.getElementById(elementId);
+    if (element) element.scrollIntoView();
 };

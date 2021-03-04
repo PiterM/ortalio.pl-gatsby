@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { togglePlayerVolume, trackSeekTo } from './player-actions';
+import { TimerMode } from './player-constants';
 import Slider from '@material-ui/core/Slider';
 import { VolumeUp, VolumeDown } from '@material-ui/icons';
 import styled from '@emotion/styled';
@@ -16,7 +17,7 @@ const PlayerSlider = styled(Slider)({
 
 const PlayerProgressGrid = styled.div({
     display: 'grid',
-    gridTemplateColumns: '1fr 8fr 3fr',
+    gridTemplateColumns: '1fr 7fr 3fr',
     alignItems: 'center',
     height: 75
 });
@@ -40,7 +41,8 @@ const VolumeContainer = styled.span(({ disabled }: VolumeContainerProps) => {
 const Timer = styled.div({
   textAlign: 'center',
   width: '100%',
-  fontFamily: 'Space Mono, monospace'
+  fontFamily: 'Space Mono, monospace',
+  cursor: 'pointer'
 });
 
 const PlayerSliderContainer = styled.div({
@@ -52,16 +54,26 @@ const PlayerSliderContainer = styled.div({
 interface PlayerProgressSliderProps {
     progress: number;
     elapsedTime: string;
+    remainingTime: string;
     disabled: boolean;
     volumeDisabled: boolean;
     loadedTime: string;
     muted: boolean;
 }
 
-const PlayerProgressSlider: React.FC<PlayerProgressSliderProps> = ({ progress, elapsedTime, loadedTime, disabled, volumeDisabled, muted }) => {
+const PlayerProgressSlider: React.FC<PlayerProgressSliderProps> = ({ 
+    progress, 
+    elapsedTime, 
+    remainingTime,
+    loadedTime, 
+    disabled, 
+    volumeDisabled, 
+    muted 
+  }) => {
   const dispatch = useDispatch();
   const [percent, setPercent] = useState(0);
   const [mouseDown, setMouseDown] = useState(false);
+  const [timerMode, setTimerMode] = useState(TimerMode.RemainingTime);
 
   const handleSliderChange = (event: any, percent: number) => setPercent(percent);
   const handleMouseDown = () => setMouseDown(true);
@@ -70,6 +82,10 @@ const PlayerProgressSlider: React.FC<PlayerProgressSliderProps> = ({ progress, e
     setMouseDown(false);
   };
   const handleVolumeChange = () => !disabled && dispatch(togglePlayerVolume());
+  const toggleTimerMode = () => {
+    const mode = timerMode === TimerMode.ElapsedTime ? TimerMode.RemainingTime : TimerMode.ElapsedTime;
+    setTimerMode(mode);
+  }
 
   const currentProgress = mouseDown ? percent : progress;
 
@@ -101,7 +117,16 @@ const PlayerProgressSlider: React.FC<PlayerProgressSliderProps> = ({ progress, e
               disabled={disabled}
           />
         </PlayerSliderContainer>
-        <Timer>{elapsedTime}{loadedTime}</Timer>
+        <Timer
+          onClick={() => toggleTimerMode()}
+        >
+          { timerMode === TimerMode.ElapsedTime && elapsedTime.trim() &&
+              `+${elapsedTime}${loadedTime}` 
+          }
+          { timerMode === TimerMode.RemainingTime && remainingTime.trim() &&
+              `-${remainingTime}${loadedTime}`
+          }
+        </Timer>
       </PlayerProgressGrid>
   );
 };

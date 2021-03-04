@@ -5,9 +5,10 @@ const { colors, images } = styles;
 
 interface PlayButtonLayerProps {
     trackStatus: TrackPlayStatus;
+    blink: boolean;
 }
 
-export default styled.div(({ trackStatus }: PlayButtonLayerProps) => {
+export default styled.div(({ trackStatus, blink }: PlayButtonLayerProps) => {
     const { Playing, Paused, Loading } = TrackPlayStatus;
     const opacity = 1;
     const backgroundColor = '#fff';
@@ -15,6 +16,8 @@ export default styled.div(({ trackStatus }: PlayButtonLayerProps) => {
     let backgroundImage;
     let backgroundSize = '102% 102%';
     let backgroundSizeLoadingActive =  '85% 85%';
+    const animation = blink ? 'blinking 1.5s infinite' : 'none';
+    
     switch (trackStatus) {
       case (Playing):
         backgroundImage = images.pauseIcon;
@@ -42,6 +45,7 @@ export default styled.div(({ trackStatus }: PlayButtonLayerProps) => {
       transform: 'translate(-50%, -50%)',
       cursor: 'pointer',
       borderRadius: '50% 50%',
+      animation,
       ':hover': {
         opacity: 0.9,
       },

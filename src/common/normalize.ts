@@ -155,4 +155,12 @@ export default `
       padding-left: 1.25rem;
     }
   }
+
+  @keyframes blinking {
+    0% { opacity: 0.8; };
+    49% { opacity: 0.8; };
+    60% { opacity: 0; };
+    99% { opacity: 0; }
+    100% { opacity: 0.8; }
+  }
 `
