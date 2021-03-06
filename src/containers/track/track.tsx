@@ -63,7 +63,7 @@ const StyledTrack = styled.section`
     background: url('${images.playIndicator}') top left no-repeat;
   }
 
-  &.Playing, &.Loading, &:active, &.selected {
+  &.Playing, &.Loading, &.Paused, &:active, &.selected {
     border-top: 1px solid ${colors.newspaperText};
     border-bottom: 1px solid ${colors.newspaperText};
     background-color: #fff;
