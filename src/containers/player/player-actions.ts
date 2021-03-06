@@ -112,6 +112,16 @@ export const playPreviousTrack = (): PlayPreviousTrack => ({
     type: ACTION_TYPES.PLAY_PREVIOUS_TRACK,
 });
 
+export interface SetCurrentTrackError {
+    type: ACTION_TYPES.SET_CURRENT_TRACK_ERROR;
+    payload: string;
+}
+
+export const setCurrentTrackError = (payload: string): SetCurrentTrackError => ({
+    type: ACTION_TYPES.SET_CURRENT_TRACK_ERROR,
+    payload
+});
+
 export type PlayerActions = 
     | SetTracksData
     | PlayPauseTrack
@@ -124,4 +134,6 @@ export type PlayerActions =
     | TogglePlayerVolume
     | SetLoopMode
     | PlayNextTrack
-    | PlayPreviousTrack;
+    | PlayPreviousTrack
+    | SetCurrentTrack
+    | SetCurrentTrackError;

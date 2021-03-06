@@ -3,10 +3,10 @@ export interface WindowResolution {
     height: number;
 }
 export interface GraphNode {
-    left: number;
-    right: number;
-    up: number;
-    down: number;
+    Left: number;
+    Right: number;
+    Up: number;
+    Down: number;
 }
 
 interface SocialMedia {

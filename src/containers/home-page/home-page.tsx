@@ -63,17 +63,15 @@ const HomePage: React.FC<HomePageProps> = ({
     const currentTrack = useSelector(getCurrentTrack);
     const tracks = useSelector(getTracks);
 
+    const isHandledKey = (keyCode: number) => Object.values(KeyCodes).includes(keyCode);
+
     const onKeyDown = (event: any) => { 
-        if (currentTrack?.details.id && Object.values(KeyCodes).includes(event.keyCode)) {
-            event.preventDefault();
-        }
-        if (!keyPressed) {
-            dispatch(setKeyDownInit(event.keyCode));
-            setKeyPressed(true);
-        }
+        isHandledKey(event.keyCode) && event.preventDefault();
+        !keyPressed && (setKeyPressed(true), dispatch(setKeyDownInit(event.keyCode)));
     }
 
-    const onKeyUp = () => { 
+    const onKeyUp = (event: any) => { 
+        isHandledKey(event.keyCode) && event.preventDefault();
         keyPressed && setKeyPressed(false);
     }
 

@@ -71,10 +71,10 @@ export const getItemsGraph = (columns: any[]): ItemsGraphState | GraphNode[] => 
                 : columns[columnLeftKey][rowLeftKey];
 
             const graphNode: GraphNode = {
-                right: itemRight,
-                left: itemLeft,
-                up: columns[i][itemUpKey],
-                down: columns[i][itemDownKey]
+                Right: itemRight,
+                Left: itemLeft,
+                Up: columns[i][itemUpKey],
+                Down: columns[i][itemDownKey]
             };
 
             graph[columns[i][j]] = graphNode;

@@ -89,7 +89,7 @@ const Tracks: React.FC<TracksProps> = ({ tracks, columnsNumber }) => {
       return result;
     } 
 
-    return (<>{renderTracks(tracks)}</>);
+    return React.useMemo(() => (<>{renderTracks(tracks)}</>), [tracks, columnsNumber]);
 };
 
 export default Tracks;

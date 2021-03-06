@@ -18,3 +18,10 @@ export enum TimerMode {
     ElapsedTime = 'ElapsedTime',
     RemainingTime = 'RemainingTime'
 }
+
+export enum ArrowKeyDirection {
+    Right = 'Right',
+    Left = 'Left',
+    Up = 'Up',
+    Down = 'Down'
+}
