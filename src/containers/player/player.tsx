@@ -43,7 +43,7 @@ const PlayerContainer = styled.div({
     border: '3px solid #fff',
     transition: 'all 0.3s ease-in-out',
     display: 'grid',
-    gridTemplateColumns: '0.5fr 3fr 1fr 0.5fr 5fr 2fr',
+    gridTemplateColumns: '0.5fr 3fr 1fr 0.5fr 6fr 2fr',
     "&.player-visible": {
         bottom: 0
     },
@@ -178,6 +178,7 @@ const ClosePlayerIcon = styled.div({
     cursor: 'pointer',
     border: '1px solid transparent',
     transition: 'border 0.5s ease-in-out',
+    margin: '0 30px',
     ":active": {
         backgroundSize: '65% 65%'
     },

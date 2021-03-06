@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
-import { getCurrentTrack } from '../player/player-selectors';
+import { getCurrentTrack, getPlayerVisible } from '../player/player-selectors';
 import { colors, dimensions } from '../../common/variables';
 import TrackHeader from './track-header';
 import { TrackPlayStatus } from './track-models';
 import TrackContent from './track-content';
-import { playPauseTrack } from '../player/player-actions';
+import { playPauseTrack, togglePlayerVisible } from '../player/player-actions';
 import styles from '../../gatsby-plugin-theme-ui';
 import './track.scss';
 
@@ -104,6 +104,7 @@ const Track: React.FC<TrackProps> = ({
     const dispatch = useDispatch();
 
     const currentTrack = useSelector(getCurrentTrack);
+    const isPlayerVisible = useSelector(getPlayerVisible);
     const currentTrackId = currentTrack?.details?.id;
     const thisOneActive = currentTrackId === id;
 
@@ -116,12 +117,14 @@ const Track: React.FC<TrackProps> = ({
     const playResumeTrack = !thisOneActive || currentTrack?.status === Paused;
 
     const onTrackClick = () => playResumeTrack && dispatch(playPauseTrack(id));
+    const setPlayerVisibleOff = () => isPlayerVisible && dispatch(togglePlayerVisible());
     
     return (
       <StyledTrack
         className={`track${trackClass}`}
         onClick={() => onTrackClick()}
         id={slug}
+        onMouseOver={setPlayerVisibleOff}
       >
         <span className="play-icon"></span>
         <TrackHeader
