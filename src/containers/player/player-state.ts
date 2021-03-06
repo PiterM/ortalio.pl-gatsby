@@ -23,4 +23,5 @@ export interface PlayerState {
     currentTrack?: CurrentTrackState;
     muted: boolean;
     loopMode: LoopMode;
+    playerVisible: boolean;
 }

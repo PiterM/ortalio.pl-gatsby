@@ -80,6 +80,14 @@ export const togglePlayerVolume = (): TogglePlayerVolume => ({
     type: ACTION_TYPES.TOGGLE_VOLUME
 });
 
+export interface TogglePlayerVisible {
+    type: ACTION_TYPES.TOGGLE_PLAYER_VISIBLE;
+}
+
+export const togglePlayerVisible = (): TogglePlayerVisible => ({
+    type: ACTION_TYPES.TOGGLE_PLAYER_VISIBLE
+});
+
 export interface SetLoopMode {
     type: ACTION_TYPES.SET_LOOP_MODE;
 }
@@ -135,5 +143,5 @@ export type PlayerActions =
     | SetLoopMode
     | PlayNextTrack
     | PlayPreviousTrack
-    | SetCurrentTrack
+    | TogglePlayerVisible
     | SetCurrentTrackError;

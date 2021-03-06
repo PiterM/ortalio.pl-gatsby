@@ -4,7 +4,7 @@ import ReactPlayer from 'react-player';
 import styles from '../../gatsby-plugin-theme-ui';
 import * as variables from '../../common/variables';
 import { setWindowLocationHash, timeFormatHelper } from '../../common/common-helpers';
-import { getCurrentTrack, getPlayerMuted, getLoopMode } from './player-selectors';
+import { getCurrentTrack, getPlayerMuted, getLoopMode, getPlayerVisible } from './player-selectors';
 import { 
     playPauseTrackSuccess, 
     playPauseTrackFailure, 
@@ -12,14 +12,23 @@ import {
     setTrackProgress,
     trackSeekToSuccess,
     setLoopMode,
-    stopPlayback
+    stopPlayback,
+    togglePlayerVisible
 } from './player-actions';
 import PlayerPlayPauseButton from './player-play-button';
 import PlayerProgressSlider from './player-bar';
 import styled from '@emotion/styled';
-import { LoopMode, NextPreviousTrackMode, AudioSource } from './player-constants';
+import { 
+    LoopMode, 
+    NextPreviousTrackMode, 
+    AudioSource,
+    youtubeConfig, 
+    soundcloudConfig,
+    playerVisibleHeight
+} from './player-constants';
 import PlayerNextPreviousTrackButton from './player-next-previous-button';
 import Img from 'gatsby-image';
+import { TrackPlayStatus } from '../track/track-models';
 const { useEffect, useState } = React;
 const { images, colors } = styles;
 
@@ -39,6 +48,19 @@ const PlayerContainer = styled.div({
     },
     alignContent: 'center',
 });
+
+const StyledMediaPlayer = styled.div`
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 2;
+    display: flex;
+    border-top: 2px solid ${colors.white};
+
+    background-color: rgba(249,247,241,1);
+`;
 
 const TrackTitleItem = styled.div({
     height: '100%',
@@ -203,14 +225,18 @@ const Player: React.FC = () => {
     const currentTrack = useSelector(getCurrentTrack);
     const loopMode = useSelector(getLoopMode);
     const playerMuted = useSelector(getPlayerMuted);
+    const playerVisible = useSelector(getPlayerVisible);
     const [trackInProgress, setTrackInProgress] = useState(false);
     const [playerRendered, setPlayerRendered] = useState(false);
     
     const soundcloudUrl = currentTrack?.details?.soundcloudUrl;
     const youtubeUrl = currentTrack?.details?.youtubeUrl;
-    const previewUrl = 'https://soundcloud.com/ortaliomusic/evening-dub-cinematic-groovy';
     const audioSource = soundcloudUrl && !youtubeUrl ? AudioSource.Soundcloud : AudioSource.Youtube;
         //soundcloudUrl || youtubeUrl;
+    const previewUrl = audioSource === AudioSource.Soundcloud
+        ? 'https://soundcloud.com/ortaliomusic/evening-dub-cinematic-groovy'
+        : 'https://www.youtube.com/watch?v=RACfJZpRM2w';
+
     const trackId = currentTrack?.details?.id;
     const seeking = currentTrack?.progress?.seeking;
     const dispatch = useDispatch();
@@ -260,6 +286,8 @@ const Player: React.FC = () => {
 
     const changeLoopMode = () => dispatch(setLoopMode());
 
+    const setPlayerVisible = () => dispatch(togglePlayerVisible());
+
     const { progress, playing, paused, actionPending } = currentTrack;
     const playerClass = playing || paused ? 'player-visible' : undefined;
     const { 
@@ -276,6 +304,22 @@ const Player: React.FC = () => {
         elapsedTime = timeFormatHelper(Math.round(Number(progress.data.playedSeconds)));
         remainingTime = timeFormatHelper(Math.round(Number(duration - progress.data.playedSeconds)));
     }
+
+    const playerDisplayVisibilityStyle = playerVisible ? 'visible' : 'hidden';
+    const playerDisplayStyles = {
+        visibility: playerDisplayVisibilityStyle,
+    };
+
+    const config = {
+        youtube: youtubeConfig,
+        soundcloud: soundcloudConfig
+    };
+
+    const playerHeight = audioSource === AudioSource.Soundcloud
+        ? playerVisibleHeight.soundcloudPlayerHeight
+        : playerVisibleHeight.youtubePlayerHeight;
+
+    const isTrackLoading = currentTrack?.status === TrackPlayStatus.Loading;
 
     return (
             <>
@@ -337,18 +381,25 @@ const Player: React.FC = () => {
                         <EmbedIconContainer>
                             <EmbedViewIcon 
                                 audioSource={audioSource}
+                                onMouseOver={() => !isTrackLoading && setPlayerVisible()}
                             />
                         </EmbedIconContainer>
                     </CloseAndEmbedItems>
 
                 </PlayerContainer>
                 { playerRendered && previewUrl && 
+                <StyledMediaPlayer
+                    style={playerDisplayStyles as any}
+                    onMouseOut={() => setPlayerVisible()}
+                >
                     <ReactPlayer 
                         ref={playerRef}
-                        style={{display: 'none'}}
                         url={previewUrl}
                         playing={currentTrack.playing}
+                        width="100%"
+                        height={playerHeight}
                         volume={0.8}
+                        config={config}
                         muted={playerMuted || !trackInProgress}
                         onStart={actionFinishedSuccessfully}
                         onPlay={actionFinishedSuccessfully}
@@ -358,6 +409,7 @@ const Player: React.FC = () => {
                         onProgress={setProgress}
                         onDuration={setDuration}
                     />
+                </StyledMediaPlayer>
                 }
             </>
     );

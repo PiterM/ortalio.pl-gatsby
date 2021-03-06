@@ -8,7 +8,8 @@ export const initPlayerState: PlayerState = {
     tracks: {},
     muted: false,
     currentTrack: undefined,
-    loopMode: LoopMode.LoopAll
+    loopMode: LoopMode.LoopAll,
+    playerVisible: false
 };
 
 export const playerReducer = (state: PlayerState = initPlayerState, action: PlayerActions) => {
@@ -169,6 +170,12 @@ export const playerReducer = (state: PlayerState = initPlayerState, action: Play
                 ...state,
                 muted: !state.muted
             };  
+
+        case (ACTION_TYPES.TOGGLE_PLAYER_VISIBLE):
+            return {
+                ...state,
+                playerVisible: !state.playerVisible
+            }; 
             
         case (ACTION_TYPES.SET_LOOP_MODE):
             const currentLoopMode = state.loopMode;
