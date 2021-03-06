@@ -113,7 +113,9 @@ const Track: React.FC<TrackProps> = ({
       trackClass = ` ${currentTrack.status}`;
     }
 
-    const onTrackClick = () => !thisOneActive && dispatch(playPauseTrack(id));
+    const playResumeTrack = !thisOneActive || currentTrack?.status === Paused;
+
+    const onTrackClick = () => playResumeTrack && dispatch(playPauseTrack(id));
     
     return (
       <StyledTrack
