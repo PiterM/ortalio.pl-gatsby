@@ -88,6 +88,14 @@ export const togglePlayerVisible = (): TogglePlayerVisible => ({
     type: ACTION_TYPES.TOGGLE_PLAYER_VISIBLE
 });
 
+export interface TogglePlayPauseTrack {
+    type: ACTION_TYPES.TOGGLE_PLAY_PAUSE_TRACK;
+}
+
+export const togglePlayPauseTrack = (): TogglePlayPauseTrack => ({
+    type: ACTION_TYPES.TOGGLE_PLAY_PAUSE_TRACK
+});
+
 export interface SetLoopMode {
     type: ACTION_TYPES.SET_LOOP_MODE;
 }
@@ -144,4 +152,5 @@ export type PlayerActions =
     | PlayNextTrack
     | PlayPreviousTrack
     | TogglePlayerVisible
-    | SetCurrentTrackError;
+    | SetCurrentTrackError
+    | TogglePlayPauseTrack;

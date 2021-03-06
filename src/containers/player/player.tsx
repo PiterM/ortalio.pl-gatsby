@@ -13,7 +13,8 @@ import {
     trackSeekToSuccess,
     setLoopMode,
     stopPlayback,
-    togglePlayerVisible
+    togglePlayerVisible,
+    togglePlayPauseTrack
 } from './player-actions';
 import PlayerPlayPauseButton from './player-play-button';
 import PlayerProgressSlider from './player-bar';
@@ -272,7 +273,6 @@ const Player: React.FC = () => {
         return <PlayerContainer />
     }
 
-    const actionFinishedSuccessfully = () => dispatch(playPauseTrackSuccess());
     const actionFinishedWithError = () => dispatch(playPauseTrackFailure());
     const onTrackFinish = () => { 
         setTrackInProgress(false);
@@ -303,6 +303,22 @@ const Player: React.FC = () => {
         loadedTime = ` / ${timeFormatHelper(Math.round(Number(duration)))}`;
         elapsedTime = timeFormatHelper(Math.round(Number(progress.data.playedSeconds)));
         remainingTime = timeFormatHelper(Math.round(Number(duration - progress.data.playedSeconds)));
+    }
+
+    const togglePlay = () => { 
+        if (currentTrack?.actionPending) {
+            dispatch(playPauseTrackSuccess());
+        } else {
+            paused && dispatch(togglePlayPauseTrack());
+        }
+    }
+
+    const togglePause = () => { 
+        if (currentTrack?.actionPending) {
+            dispatch(playPauseTrackSuccess());
+        } else {
+            playing && dispatch(togglePlayPauseTrack());
+        }
     }
 
     const playerDisplayVisibilityStyle = playerVisible ? 'visible' : 'hidden';
@@ -401,9 +417,9 @@ const Player: React.FC = () => {
                         volume={0.8}
                         config={config}
                         muted={playerMuted || !trackInProgress}
-                        onStart={actionFinishedSuccessfully}
-                        onPlay={actionFinishedSuccessfully}
-                        onPause={actionFinishedSuccessfully}
+                        onStart={togglePlay}
+                        onPlay={togglePlay}
+                        onPause={togglePause}
                         onEnded={onTrackFinish}
                         onError={actionFinishedWithError}
                         onProgress={setProgress}

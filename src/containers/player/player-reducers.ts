@@ -169,7 +169,28 @@ export const playerReducer = (state: PlayerState = initPlayerState, action: Play
             return {
                 ...state,
                 muted: !state.muted
-            };  
+            }; 
+            
+        case (ACTION_TYPES.TOGGLE_PLAY_PAUSE_TRACK):
+            if (!currentTrack) {
+                return state;
+            }
+
+            playing = !state.currentTrack.playing;
+            paused = !state.currentTrack.paused;
+
+            status = playing ? TrackPlayStatus.Playing 
+                : (paused ? TrackPlayStatus.Paused : TrackPlayStatus.None);
+            
+            return {
+                ...state,
+                currentTrack: {
+                    ...currentTrack,
+                    playing,
+                    paused,
+                    status
+                }
+            };
 
         case (ACTION_TYPES.TOGGLE_PLAYER_VISIBLE):
             return {
