@@ -25,6 +25,19 @@ const StyledPage = styled.div`
   margin-top: 50px;
 `;
 
+const ListenHeader = styled.p({
+    display: 'inline-block',
+    letterSpacing: '6px',
+    fontFamily: '"Playfair Display", "Droid Serif", Georgia, "Times New Roman", Times, serif',
+    fontWeight: 900,
+    fontSize: '28px',
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    width: '100%',
+    margin: '10px 0',
+    color: '#2f2f2f'
+});
+
 const NoTracksInfo = styled.p({
     textAlign: 'center',
     width: '100%',
@@ -113,7 +126,7 @@ const HomePage: React.FC<HomePageProps> = ({
             <SocialIcons
                 socialMediaData={socialMediaData}
             />
-            <h2 className="listen-header">Click to play:</h2>
+            <ListenHeader>Click to play:</ListenHeader>
 
             { noTracks 
                 ?   <NoTracksInfo>Sorry. No content here yet.</NoTracksInfo>
