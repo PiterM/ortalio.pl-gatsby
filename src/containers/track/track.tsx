@@ -15,7 +15,7 @@ const { images } = styles;
 const StyledTrack = styled.section`
   line-height: ${dimensions.lineHeight.regular};
   padding: 0 1% 0 1%;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
   width: 100%;

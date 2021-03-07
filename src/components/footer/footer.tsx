@@ -7,7 +7,6 @@ import styles from '../../gatsby-plugin-theme-ui';
 
 const FooterCopyright = styled.div`
   text-align: center;
-  position: relative;
   padding: 20px;
   font-size: 16px;
 `;
