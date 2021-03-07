@@ -1,9 +1,10 @@
 import * as React from 'react'
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import styled from '@emotion/styled'
 import { colors, fonts } from '../../common/variables';
 import { StoreState, LayoutOptionsState } from '../../store/StoreState';
 import styles from '../../gatsby-plugin-theme-ui';
+import { getLayoutOptions } from '../../containers/home-page/home-page-selectors';
 import './header.scss';
 
 const StyledHeaderDiv = styled.div`
@@ -29,6 +30,7 @@ const StyledHeaderTitle = styled.header`
   display: inline-block;
   margin-bottom: 20px;
   letter-spacing: 6px;
+  margin: 0 auto;
 
   & h1 {
     font-family: ${fonts.headline}, serif;
@@ -56,24 +58,16 @@ const StyledSubHeader = styled.div`
   font-family: ${styles.fonts.weatherForecast};
 `;
 
-interface HeaderOwnProps {
+interface HeaderProps {
   intro: string;
   title: string;
   description: string;
 }
 
-interface HeaderMappedProps {
-  layoutOptions: LayoutOptionsState;
-}
+const Header: React.FC<HeaderProps> = ({ intro, description: description, title }: HeaderProps) => {
 
-type HeaderProps = HeaderOwnProps & HeaderMappedProps;
-
-export class Header extends React.Component<HeaderProps> {
-  render() {
-    let { intro, description } = this.props;
-    const { title, layoutOptions } = this.props;
-
-    description = layoutOptions.columnsNumber <= 4 
+    const layoutOptions = useSelector(getLayoutOptions);
+    const headerDescription = layoutOptions.columnsNumber <= 4 
       ? intro
       : description;
       
@@ -98,15 +92,10 @@ export class Header extends React.Component<HeaderProps> {
           </StyledHeaderTitle>
         </HeaderWrapperDiv>
         <StyledSubHeader>
-          <div dangerouslySetInnerHTML={{ __html: description }} />
+          <div dangerouslySetInnerHTML={{ __html: headerDescription }} />
         </StyledSubHeader>
       </StyledHeaderDiv>
     );
-  }
 }
 
-const mapStateToProps: any = (store: StoreState): HeaderMappedProps => ({
-  layoutOptions: store.layoutOptions,
-});
-
-export default connect<HeaderMappedProps>(mapStateToProps)(Header);
+export default Header;

@@ -12,6 +12,7 @@ import {
 import { setKeyDownInit, setLayoutOptions as setLayoutOptionsAction } from './home-page-actions';
 import HomePageLayout from '../../layouts/home-page-layout';
 import SocialIcons from '../../components/social-icons/social-icons';
+import Footer from '../../components/footer/footer';
 import Tracks from '../tracks/tracks';
 const { useEffect, useState } = React;
 
@@ -139,6 +140,7 @@ const HomePage: React.FC<HomePageProps> = ({
                         /> 
                     </StyledPage>
             }
+            <Footer />
         </HomePageLayout>
     );
 };

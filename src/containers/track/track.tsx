@@ -81,6 +81,10 @@ const StyledTrack = styled.section`
   &.Playing, &.Loading, &.selected {
     cursor: text;
   }
+
+  &:not(.first-in-column) {
+    padding-top: 30px;
+  }
 `;
 
 interface TrackProps {
@@ -90,6 +94,7 @@ interface TrackProps {
   slug: string;
   shortDescription: string;
   content?: string;
+  cssIndex: number;
 }
 
 const Track: React.FC<TrackProps> = ({ 
@@ -99,6 +104,7 @@ const Track: React.FC<TrackProps> = ({
   slug,
   shortDescription, 
   content, 
+  cssIndex
 }) => {
   
     const dispatch = useDispatch();
@@ -113,6 +119,7 @@ const Track: React.FC<TrackProps> = ({
     if (thisOneActive && [Loading, Playing, Paused].includes(currentTrack?.status)) {
       trackClass = ` ${currentTrack.status}`;
     }
+    trackClass = cssIndex === 0 ? `${trackClass} first-in-column` : trackClass;
 
     const playResumeTrack = !thisOneActive || currentTrack?.status === Paused;
 

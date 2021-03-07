@@ -32,10 +32,11 @@ export interface TracksProps {
 const Tracks: React.FC<TracksProps> = ({ tracks, columnsNumber }) => {
     const dispatch = useDispatch();
 
-    const renderTrack = (item: TrackState) => {
+    const renderTrack = (item: TrackState, index: number) => {
       const { id, title, slug, shortDescription, content } = item;
       return (
           <Track
+              cssIndex={index}  
               key={id}
               id={id}
               slug={slug}
@@ -48,7 +49,7 @@ const Tracks: React.FC<TracksProps> = ({ tracks, columnsNumber }) => {
     }
 
     const renderTracksColumn = (columnItems: any[]): any[] => {
-        return columnItems.map((item) => renderTrack(item));
+        return columnItems.map((item, index) => renderTrack(item, index));
     };
 
     const renderTracks = (items: any[]) => {
@@ -72,7 +73,7 @@ const Tracks: React.FC<TracksProps> = ({ tracks, columnsNumber }) => {
 
           columns.push(columnIndices);
 
-          const columnItems: any[] = items.filter((item, index) => columnIndices.indexOf(index) !== -1)
+          const columnItems: any[] = items.filter((item, index) => columnIndices.indexOf(index) !== -1);
           const columnItemsResult = (
               <StyledPageColumn 
                   key={columnIndices.reduce((a: number, b: number) => a * b)} 
