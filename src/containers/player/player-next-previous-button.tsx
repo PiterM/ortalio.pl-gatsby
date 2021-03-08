@@ -31,7 +31,14 @@ const NextPreviousButton = styled.div(({ mode }: NextPreviousButtonProps) => {
       cursor: 'pointer',
       ":active": {
         backgroundSize: backgroundSizeLoadingActive
-      }
+      },
+      "@media (max-width: 1280px)": {
+        height: '30%',
+        width: '30%',
+        "> div": {
+            margin: '15px 0',
+        }
+    }
 }});
 
 const PlayerNextPreviousButtonContainer = styled.div({

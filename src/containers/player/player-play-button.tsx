@@ -10,7 +10,12 @@ const PlayPauseButtonContainer = styled.div({
     position: 'relative',
     height: '90px',
     width: '90px',
-    margin: '0 15px'
+    margin: '0 15px',
+    "@media (max-width: 1280px)": {
+        height: '60px',
+        width: '60px',
+        margin: '15px 0 !important',
+    }
 });
 
 interface PlayerPlayPauseButtonProps {

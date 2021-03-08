@@ -48,6 +48,15 @@ const PlayerContainer = styled.div({
         bottom: 0
     },
     alignContent: 'center',
+    "@media (min-width: 1280px) and (max-width: 1800px)": {
+        gridTemplateColumns: '0.5fr 3fr 1fr 0.5fr 4fr 3fr',
+    },
+    "@media (max-width: 1280px)": {
+        gridTemplateColumns: '2fr 1fr 0.5fr 3fr 3fr',
+    },
+    "@media (max-width: 960px)": {
+        gridTemplateColumns: '2fr 1fr 0.5fr 1fr 3fr',
+    },
 });
 
 const StyledMediaPlayer = styled.div`
@@ -67,13 +76,21 @@ const TrackTitleItem = styled.div({
     height: '100%',
     width: '100%',
     display: 'table',
+    maxHeight: '100px',
+    overflow: 'hidden',
+    "@media (max-width: 1024px)": {
+        height: '100px'
+    }
 });
 
 const TrackThumbnailContainer = styled.div({
     display: 'inline-grid',
     alignContent: 'center',
     backgroundColor: '#fff',
-    position: 'relative'
+    position: 'relative',
+    "@media (max-width: 1280px)": {
+        display: 'none'
+    }
 });
 
 const PlayerItemInline = styled.div({
@@ -139,6 +156,9 @@ const EmbedViewIcon = styled.span(({ audioSource }: EmbedViewIconProps) => {
         top: 0,
         left: 0,
         cursor: 'pointer',
+        "@media (max-width: 960px)": {
+            backgroundSize: '50%'
+        },
     }
 });
 
@@ -159,6 +179,13 @@ const TrackTitle = styled.p({
     cursor: 'pointer',
     ": hover": {
         color: '#000'
+    },
+    "@media (max-width: 1600px)": {
+        fontSize: '16px'
+    },
+    "@media (max-width: 1280px)": {
+        fontSize: '14px',
+        padding: 5
     }
 });
 
@@ -185,6 +212,12 @@ const ClosePlayerIcon = styled.div({
     ":hover": {
         borderColor: '#000'
     },
+    "@media (max-width: 1600px)": {
+        backgroundSize: '150% 150%',
+    },
+    "@media (max-width: 960px)": {
+        margin: 15,
+    }
 });
 
 interface LoopButtonProps {
@@ -299,9 +332,9 @@ const Player: React.FC = () => {
 
     let elapsedTime = '      ';
     let remainingTime = elapsedTime;
-    let loadedTime = '/      ';
+    let loadedTime = '      ';
     if (progress?.data?.playedSeconds) {
-        loadedTime = ` / ${timeFormatHelper(Math.round(Number(duration)))}`;
+        loadedTime = `${timeFormatHelper(Math.round(Number(duration)))}`;
         elapsedTime = timeFormatHelper(Math.round(Number(progress.data.playedSeconds)));
         remainingTime = timeFormatHelper(Math.round(Number(duration - progress.data.playedSeconds)));
     }
@@ -392,15 +425,15 @@ const Player: React.FC = () => {
                     </PlayerItemInline>
 
                     <CloseAndEmbedItems>
-                        <ClosePlayerIcon 
-                            onClick={onStopPlayback}
-                        />
                         <EmbedIconContainer>
                             <EmbedViewIcon 
                                 audioSource={audioSource}
                                 onMouseOver={() => !isTrackLoading && setPlayerVisible()}
                             />
                         </EmbedIconContainer>
+                        <ClosePlayerIcon 
+                            onClick={onStopPlayback}
+                        />
                     </CloseAndEmbedItems>
 
                 </PlayerContainer>

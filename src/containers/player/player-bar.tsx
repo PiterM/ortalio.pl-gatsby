@@ -1,11 +1,12 @@
 import * as React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { togglePlayerVolume, trackSeekTo } from './player-actions';
 import { TimerMode } from './player-constants';
 import Slider from '@material-ui/core/Slider';
 import { VolumeUp, VolumeDown } from '@material-ui/icons';
 import styled from '@emotion/styled';
 import styles from '../../gatsby-plugin-theme-ui/index';
+import { getLayoutColumnsNumber } from '../home-page/home-page-selectors';
 const { colors } = styles;
 const { useState } = React;
 
@@ -19,7 +20,10 @@ const PlayerProgressGrid = styled.div({
     display: 'grid',
     gridTemplateColumns: '1fr 7fr 3fr',
     alignItems: 'center',
-    height: 75
+    height: 75,
+    "@media (max-width: 960px)": {
+      gridTemplateColumns: '1fr 3fr',
+    }
 });
 
 interface VolumeContainerProps {
@@ -31,10 +35,11 @@ const VolumeContainer = styled.span(({ disabled }: VolumeContainerProps) => {
   return {
     cursor: 'pointer',
     textAlign: 'center',
+    marginRight: 20,
     "& svg": {
         verticalAlign: 'middle',
         fill
-    }
+    },
   }
 });
 
@@ -42,13 +47,33 @@ const Timer = styled.div({
   textAlign: 'center',
   width: '100%',
   fontFamily: 'Space Mono, monospace',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  "& p": {
+    display: 'inline',
+    margin: 0,
+    padding: 0
+  },
+  "@media (max-width: 1800px)": {
+    fontSize: '16px',
+    "& p": {
+      display: 'block',
+      "> span": {
+        display: 'none'
+      }
+    }
+  },
+  "@media (max-width: 1280px)": {
+    fontSize: '14px',
+  }
 });
 
 const PlayerSliderContainer = styled.div({
   display: 'inline-grid',
   alignContent: 'center',
   height: '100%',
+  "@media (max-width: 960px)": {
+    display: 'none'
+  }
 });
 
 interface PlayerProgressSliderProps {
@@ -75,6 +100,8 @@ const PlayerProgressSlider: React.FC<PlayerProgressSliderProps> = ({
   const [mouseDown, setMouseDown] = useState(false);
   const [timerMode, setTimerMode] = useState(TimerMode.RemainingTime);
 
+  const layoutColumnsNumber = useSelector(getLayoutColumnsNumber);
+
   const handleSliderChange = (event: any, percent: number) => setPercent(percent);
   const handleMouseDown = () => setMouseDown(true);
   const handleMouseUp = () => {
@@ -88,6 +115,7 @@ const PlayerProgressSlider: React.FC<PlayerProgressSliderProps> = ({
   }
 
   const currentProgress = mouseDown ? percent : progress;
+  const digitsSeparator = layoutColumnsNumber > 4 ? '&nbsp;/' : '';
 
   return (
       <PlayerProgressGrid>
@@ -121,11 +149,18 @@ const PlayerProgressSlider: React.FC<PlayerProgressSliderProps> = ({
           onClick={() => toggleTimerMode()}
         >
           { timerMode === TimerMode.ElapsedTime && elapsedTime.trim() &&
-              `+${elapsedTime}${loadedTime}` 
+              <p 
+                  dangerouslySetInnerHTML={{ __html: `+${elapsedTime}` }}
+              />
           }
           { timerMode === TimerMode.RemainingTime && remainingTime.trim() &&
-              `-${remainingTime}${loadedTime}`
+              <p 
+                  dangerouslySetInnerHTML={{ __html: `-${remainingTime}` }}
+              />
           }
+          <p 
+              dangerouslySetInnerHTML={{ __html: `<span>${digitsSeparator}</span>&nbsp;${loadedTime}` }}
+          />
         </Timer>
       </PlayerProgressGrid>
   );
