@@ -57,6 +57,9 @@ const PlayerContainer = styled.div({
     "@media (max-width: 960px)": {
         gridTemplateColumns: '2fr 1fr 0.5fr 1fr 3fr',
     },
+    "@media (max-width: 640px)": {
+        gridTemplateColumns: '8fr 4fr',
+    },
 });
 
 const StyledMediaPlayer = styled.div`
@@ -80,7 +83,10 @@ const TrackTitleItem = styled.div({
     overflow: 'hidden',
     "@media (max-width: 1024px)": {
         height: '100px'
-    }
+    },
+    "@media (max-width: 640px)": {
+        display: 'none'
+    },
 });
 
 const TrackThumbnailContainer = styled.div({
@@ -90,13 +96,19 @@ const TrackThumbnailContainer = styled.div({
     position: 'relative',
     "@media (max-width: 1280px)": {
         display: 'none'
-    }
+    },
+    "@media (max-width: 640px)": {
+        display: 'none'
+    },
 });
 
 const PlayerItemInline = styled.div({
     display: 'inline-grid',
     alignContent: 'center',
-    padding: '5px 5px 2px 0'
+    padding: '5px 5px 2px 0',
+    "@media (max-width: 640px)": {
+        display: 'none'
+    },
 });
 
 const PlayerControls = styled.div({
@@ -106,7 +118,11 @@ const PlayerControls = styled.div({
     "& div": {
         padding: 0,
         margin: 0,
-    }
+    },
+    "@media (max-width: 640px)": {
+        display: 'flex',
+        justifyContent: 'space-evenly'
+    },
 });
 
 const TrackThumbnailLink = styled.div({
@@ -135,7 +151,7 @@ const AudioSourceLink = styled.a({
 const EmbedIconContainer = styled.div({
     position: 'relative',
     width: '100%',
-    height: '100%'
+    height: '100%',
 });
 
 interface EmbedViewIconProps {
@@ -156,6 +172,9 @@ const EmbedViewIcon = styled.span(({ audioSource }: EmbedViewIconProps) => {
         top: 0,
         left: 0,
         cursor: 'pointer',
+        "@media (max-width: 1600px)": {
+            backgroundSize: '30%'
+        },
         "@media (max-width: 960px)": {
             backgroundSize: '50%'
         },
@@ -247,6 +266,9 @@ const LoopButton = styled.span(({ mode }: LoopButtonProps) => {
         opacity,
         ":active": {
             backgroundSize: '52% 52%'
+        },
+        "@media (max-width: 640px)": {
+            display: 'none'
         },
     }
 });

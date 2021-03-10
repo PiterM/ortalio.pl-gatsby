@@ -1,3 +1,5 @@
+import { WindowOrientation } from './constants';
+
 export interface WindowResolution {
     width: number;
     height: number;
@@ -15,3 +17,13 @@ interface SocialMedia {
 }
 
 export type SocialMediaData = SocialMedia;
+
+export interface ScreenResolution {
+    width: number;
+    height: number;
+}
+
+export interface ScreenData {
+    [key: number]: ScreenResolution;
+    orientation: number;
+}

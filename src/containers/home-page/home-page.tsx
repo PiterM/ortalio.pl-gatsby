@@ -4,12 +4,15 @@ import styled from '@emotion/styled';
 import { dimensions } from '../../common/variables';
 import { SocialMediaData, MetaData } from './home-page.models';
 import { LayoutModes, KeyCodes } from '../../common/constants';
-import { getCurrentTrack, getTracks } from '../player/player-selectors';
+import { getTracks } from '../player/player-selectors';
 import { 
     getLayoutColumnsNumber, 
     getLayoutMode,
-} from '../../common/common-helpers';
-import { setKeyDownInit, setLayoutOptions as setLayoutOptionsAction } from './home-page-actions';
+} from './home-page-selectors';
+import { 
+    setKeyDownInit, 
+    setScreenData
+} from './home-page-actions';
 import HomePageLayout from '../../layouts/home-page-layout';
 import SocialIcons from '../../components/social-icons/social-icons';
 import Footer from '../../components/footer/footer';
@@ -51,11 +54,6 @@ interface HomePageProps {
     siteThumbnailData: any;
 };
 
-const initWindowResolution = {
-    width: window.innerWidth,
-    height: window.innerHeight
-};
-
 const initLayoutOptions = {
     columnsNumber: 5,
     mode: LayoutModes.Extended,
@@ -70,12 +68,24 @@ const HomePage: React.FC<HomePageProps> = ({
 }) => {
     const dispatch = useDispatch();
 
-    const [windowResolution, setWindowResolution] = useState(initWindowResolution);
-    const [layoutOptions, setLayoutOptions] = useState(initLayoutOptions);
     const [keyPressed, setKeyPressed] = useState(initKeyPressed);
 
-    const currentTrack = useSelector(getCurrentTrack);
     const tracks = useSelector(getTracks);
+    const columnsNumber = useSelector(getLayoutColumnsNumber);
+    const mode = useSelector(getLayoutMode);
+
+    useEffect(() => {
+        document.addEventListener("keydown", onKeyDown);
+        document.addEventListener("keyup", onKeyUp);
+        window.addEventListener("resize", onWindowResize);
+        dispatch(setScreenData());
+        
+        return () => {
+            document.removeEventListener('keydown', onKeyDown);
+            document.removeEventListener('keyup', onKeyUp);
+            window.removeEventListener('resize', onWindowResize);
+        }
+    }, []);
 
     const isHandledKey = (keyCode: number) => Object.values(KeyCodes).includes(keyCode);
 
@@ -89,35 +99,10 @@ const HomePage: React.FC<HomePageProps> = ({
         keyPressed && setKeyPressed(false);
     }
 
-    const onWindowResize = () => {
-        const windowResolution = {
-            width: window.innerWidth,
-            height: window.innerHeight
-        };
-        const columnsNumber = getLayoutColumnsNumber(windowResolution);
-        const mode = getLayoutMode(windowResolution);
+    const onWindowResize = () => dispatch(setScreenData());
 
-        setWindowResolution(windowResolution);
-        setLayoutOptions({ columnsNumber, mode });
-        dispatch(setLayoutOptionsAction({ columnsNumber, mode }));
-    }
-
-    useEffect(() => {
-        document.addEventListener("keydown", onKeyDown);
-        document.addEventListener("keyup", onKeyUp);
-        window.addEventListener("resize", onWindowResize)
-        onWindowResize();
-        
-        return () => {
-            document.removeEventListener('keydown', onKeyDown);
-            document.removeEventListener('keyup', onKeyUp);
-            window.removeEventListener('resize', onWindowResize);
-        }
-    }, []);
-
-    const { mode, columnsNumber} = layoutOptions;
     const noTracks = !tracks || tracks.length === 0;
-        
+
     return (
         <HomePageLayout
             siteMetadata={siteMetadata}

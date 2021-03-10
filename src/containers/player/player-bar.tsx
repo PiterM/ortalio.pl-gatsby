@@ -55,6 +55,7 @@ const Timer = styled.div({
   },
   "@media (max-width: 1800px)": {
     fontSize: '16px',
+    minWidth: 80,
     "& p": {
       display: 'block',
       "> span": {
@@ -64,6 +65,7 @@ const Timer = styled.div({
   },
   "@media (max-width: 1280px)": {
     fontSize: '14px',
+    minWidth: 80
   }
 });
 

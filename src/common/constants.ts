@@ -12,3 +12,9 @@ export enum KeyCodes {
     Space = 32,
     Enter = 13
 }
+
+export enum WindowOrientation {
+    Portrait = 0,
+    Landscape = 90,
+    Desktop = 360
+}

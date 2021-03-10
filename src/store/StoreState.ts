@@ -1,4 +1,4 @@
-import { GraphNode } from '../common/models';
+import { GraphNode, ScreenData } from '../common/models';
 import { LayoutModes } from '../common/constants';
 import { PlayerState } from '../containers/player/player-state';
 
@@ -13,6 +13,7 @@ export interface StoreState {
 export interface LayoutOptionsState {
     columnsNumber: number;
     mode: LayoutModes;
+    screen: ScreenData;
 }
 
 export interface ItemsGraphState {

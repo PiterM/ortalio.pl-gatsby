@@ -41,8 +41,17 @@ export const setItemsGraph = (payload: ItemsGraphState): SetItemsGraph => ({
   type: ACTION_TYPE.SET_ITEMS_GRAPH
 });
 
+export interface SetScreenData {
+  type: ACTION_TYPE.SET_SCREEN_DATA;
+}
+
+export const setScreenData = (): SetScreenData => ({
+  type: ACTION_TYPE.SET_SCREEN_DATA
+});
+
 export type HomePageActions =
   | SetKeyDownInit
   | SetKeyDownSuccess
   | SetLayoutOptions
-  | SetItemsGraph;
+  | SetItemsGraph
+  | SetScreenData;

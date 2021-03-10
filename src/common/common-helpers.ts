@@ -1,39 +1,5 @@
-import { LayoutModes } from './constants';
-import { WindowResolution } from './models';
-import { dimensions } from './variables';
 import { GraphNode } from './models';
 import { ItemsGraphState } from '../store/StoreState';
-
-export const getLayoutColumnsNumber = (resolution: WindowResolution) => {
-    if (!resolution || !resolution.height || !resolution.width) {
-        return dimensions.homePage.columnsNumber;
-    }
-
-    if (resolution.width <= 600) {
-        return 1;
-    } else if (resolution.width <= 768) {
-        return 2;
-    } else if (resolution.width <= 960) {
-        return dimensions.homePage.columnsNumber - 2;
-    } else if (resolution.width <= 1280) {
-        return dimensions.homePage.columnsNumber - 1;
-    }
-    
-    return dimensions.homePage.columnsNumber;
-}
-
-export const getLayoutMode = (resolution: WindowResolution) => {
-    if (!resolution || !resolution.height || !resolution.width) {
-        return LayoutModes.Extended;
-    }
-
-    if (resolution.width <= 600) {
-        return LayoutModes.Mobile;
-    } else if (resolution.width <= 1024) {
-        return LayoutModes.Compact;
-    }
-    return LayoutModes.Extended;
-}
 
 export const getItemsGraph = (columns: any[]): ItemsGraphState | GraphNode[] => {
     let graph: ItemsGraphState | GraphNode[] = [];
