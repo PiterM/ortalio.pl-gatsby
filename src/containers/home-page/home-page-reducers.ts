@@ -1,5 +1,5 @@
 import { LayoutModes, WindowOrientation } from '../../common/constants';
-import { GraphNode } from '../../common/models';
+import { GraphNode, ScreenParameters } from '../../common/models';
 import ACTION_TYPES from './home-page-action-types';
 import { LayoutOptionsState, ItemsGraphState } from './home-page-state';
 import { AnyAction } from 'redux';
@@ -17,34 +17,22 @@ export const keyDownReducer = (state: number | null = keyDownInitState, action: 
   }
 };
 
-export const layoutOptionsInitState: LayoutOptionsState = {
-  columnsNumber: 5,
-  mode: LayoutModes.Extended,
-  screen: undefined
-};
+export const screenInitState: ScreenParameters = null;
 
-export const layoutOptionsReducer = (
-  state: LayoutOptionsState = layoutOptionsInitState, action: AnyAction
-  ): LayoutOptionsState => {
+export const screenParamsReducer = (
+    state: ScreenParameters = screenInitState, action: AnyAction
+  ): ScreenParameters => {
   switch (action.type) {
-    case ACTION_TYPES.SET_LAYOUT_OPTIONS:
-      return {
-        ...state,
-        ...action.payload
-      };
+    case ACTION_TYPES.SET_SCREEN_PARAMS:
 
-    case ACTION_TYPES.SET_SCREEN_DATA:
       const orientation = window.orientation !== undefined 
         ? Math.abs(window.orientation as number)
         : WindowOrientation.Desktop;
 
-      if (state.screen) {
+      if (state) {
         return {
           ...state,
-          screen: {
-            ...state.screen,
-            orientation
-          }
+          orientation
         };
       }
 
@@ -63,10 +51,7 @@ export const layoutOptionsReducer = (
         screen[orientation2] = { width: height, height: width };
       }
 
-      return {
-        ...state,
-        screen
-      };
+      return screen;
 
     default:
       return state;

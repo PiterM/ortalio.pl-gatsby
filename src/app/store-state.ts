@@ -1,10 +1,10 @@
 import { PlayerState } from '../containers/player/player-state';
-import { LayoutOptionsState, ItemsGraphState } from '../containers/home-page/home-page-state';
-import { GraphNode } from '../common/models';
+import { ItemsGraphState } from '../containers/home-page/home-page-state';
+import { GraphNode, ScreenParameters } from '../common/models';
 
 export interface StoreState {
     player: PlayerState;
     keyDownCode: number | null;
-    layoutOptions: LayoutOptionsState;
+    screen: ScreenParameters;
     itemsGraph: ItemsGraphState | GraphNode[];
 }

@@ -1,5 +1,5 @@
 import ACTION_TYPE from './home-page-action-types';
-import { LayoutOptionsState, ItemsGraphState } from './home-page-state';
+import { ItemsGraphState } from './home-page-state';
 
 export interface SetKeyDownInit {
   payload: number;
@@ -21,16 +21,6 @@ export const setKeyDownSuccess = (payload: number): SetKeyDownSuccess => ({
   type: ACTION_TYPE.SET_KEY_DOWN_SUCCESS
 });
 
-export interface SetLayoutOptions {
-  payload: LayoutOptionsState;
-  type: ACTION_TYPE.SET_LAYOUT_OPTIONS;
-}
-
-export const setLayoutOptions = (payload: LayoutOptionsState): SetLayoutOptions => ({
-  payload,
-  type: ACTION_TYPE.SET_LAYOUT_OPTIONS
-});
-
 export interface SetItemsGraph {
   payload: ItemsGraphState;
   type: ACTION_TYPE.SET_ITEMS_GRAPH;
@@ -41,17 +31,16 @@ export const setItemsGraph = (payload: ItemsGraphState): SetItemsGraph => ({
   type: ACTION_TYPE.SET_ITEMS_GRAPH
 });
 
-export interface SetScreenData {
-  type: ACTION_TYPE.SET_SCREEN_DATA;
+export interface SetScreenParams {
+  type: ACTION_TYPE.SET_SCREEN_PARAMS;
 }
 
-export const setScreenData = (): SetScreenData => ({
-  type: ACTION_TYPE.SET_SCREEN_DATA
+export const setScreenParams = (): SetScreenParams => ({
+  type: ACTION_TYPE.SET_SCREEN_PARAMS
 });
 
 export type HomePageActions =
   | SetKeyDownInit
   | SetKeyDownSuccess
-  | SetLayoutOptions
   | SetItemsGraph
-  | SetScreenData;
+  | SetScreenParams;

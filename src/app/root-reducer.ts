@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { playerReducer } from '../containers/player/player-reducers';
 import { 
     keyDownReducer, 
-    layoutOptionsReducer,
+    screenParamsReducer,
     itemsGraphReducer 
   } from '../containers/home-page/home-page-reducers';
 
@@ -10,7 +10,7 @@ const rootReducer = combineReducers(
     {
         player: playerReducer,
         keyDownCode: keyDownReducer,
-        layoutOptions: layoutOptionsReducer,
+        screen: screenParamsReducer,
         itemsGraph: itemsGraphReducer,
     }
 );

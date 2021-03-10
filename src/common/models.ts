@@ -23,7 +23,7 @@ export interface ScreenResolution {
     height: number;
 }
 
-export interface ScreenData {
+export interface ScreenParameters {
     [key: number]: ScreenResolution;
     orientation: number;
 }

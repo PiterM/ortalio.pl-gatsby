@@ -3,13 +3,13 @@ import { dimensions } from '../../common/variables'
 import { LayoutModes } from '../../common/constants';
 
 export const getItemsGraph = ({ itemsGraph }: StoreState) => itemsGraph;
-export const getLayoutOptions = ({ layoutOptions }: StoreState) => layoutOptions;
+export const getLayoutOptions = ({ screen }: StoreState) => screen;
 
-export const getLayoutScreenData = ({ layoutOptions: { screen } }: StoreState) => {
+export const getLayoutScreenData = ({ screen }: StoreState) => {
     return screen && screen[screen?.orientation];
 };
 
-export const getLayoutColumnsNumber = ({ layoutOptions: { screen } }: StoreState) => {
+export const getLayoutColumnsNumber = ({ screen }: StoreState) => {
     const resolution = screen && screen[screen?.orientation];
    
     if (!resolution || !resolution.height || !resolution.width) {
@@ -29,7 +29,7 @@ export const getLayoutColumnsNumber = ({ layoutOptions: { screen } }: StoreState
     return dimensions.homePage.columnsNumber;
 }
 
-export const getLayoutMode = ({ layoutOptions: { screen } }: StoreState) => {
+export const getLayoutMode = ({ screen }: StoreState) => {
     const resolution = screen && screen[screen?.orientation];
 
     if (!resolution || !resolution.height || !resolution.width) {

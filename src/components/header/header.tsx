@@ -1,10 +1,9 @@
 import * as React from 'react'
-import { connect, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from '@emotion/styled'
 import { colors, fonts } from '../../common/variables';
-import { StoreState, LayoutOptionsState } from '../../store/StoreState';
 import styles from '../../gatsby-plugin-theme-ui';
-import { getLayoutOptions } from '../../containers/home-page/home-page-selectors';
+import { getLayoutColumnsNumber } from '../../containers/home-page/home-page-selectors';
 import './header.scss';
 
 const StyledHeaderDiv = styled.div`
@@ -66,8 +65,8 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ intro, description: description, title }: HeaderProps) => {
 
-    const layoutOptions = useSelector(getLayoutOptions);
-    const headerDescription = layoutOptions.columnsNumber <= 4 
+    const columnsNumber = useSelector(getLayoutColumnsNumber);
+    const headerDescription = columnsNumber <= 4 
       ? intro
       : description;
       

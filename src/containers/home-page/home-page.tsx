@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { dimensions } from '../../common/variables';
 import { SocialMediaData, MetaData } from './home-page.models';
-import { LayoutModes, KeyCodes } from '../../common/constants';
+import { KeyCodes } from '../../common/constants';
 import { getTracks } from '../player/player-selectors';
 import { 
     getLayoutColumnsNumber, 
@@ -11,7 +11,7 @@ import {
 } from './home-page-selectors';
 import { 
     setKeyDownInit, 
-    setScreenData
+    setScreenParams
 } from './home-page-actions';
 import HomePageLayout from '../../layouts/home-page-layout';
 import SocialIcons from '../../components/social-icons/social-icons';
@@ -54,11 +54,6 @@ interface HomePageProps {
     siteThumbnailData: any;
 };
 
-const initLayoutOptions = {
-    columnsNumber: 5,
-    mode: LayoutModes.Extended,
-};
-
 const initKeyPressed = false;
 
 const HomePage: React.FC<HomePageProps> = ({ 
@@ -78,7 +73,7 @@ const HomePage: React.FC<HomePageProps> = ({
         document.addEventListener("keydown", onKeyDown);
         document.addEventListener("keyup", onKeyUp);
         window.addEventListener("resize", onWindowResize);
-        dispatch(setScreenData());
+        dispatch(setScreenParams());
         
         return () => {
             document.removeEventListener('keydown', onKeyDown);
@@ -99,7 +94,7 @@ const HomePage: React.FC<HomePageProps> = ({
         keyPressed && setKeyPressed(false);
     }
 
-    const onWindowResize = () => dispatch(setScreenData());
+    const onWindowResize = () => dispatch(setScreenParams());
 
     const noTracks = !tracks || tracks.length === 0;
 
