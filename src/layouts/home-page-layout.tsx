@@ -45,7 +45,7 @@ const HomePageLayout: React.FC<IndexLayoutProps> = ({
                     { property: 'og:url', content: 'https://ortalio.pl' },
                     { property: 'og:site_name', content: siteMetadata.metaDescription },
                     { property: 'og:type', content: 'website' },
-                    { name: 'twitter:card', content: 'summary_large_image' },
+                    { name: 'twitter:card', content: thumbnailUrl },
                     { name: 'twitter:image', content: thumbnailUrl },
                     { name: 'twitter:image:alt', content: siteMetadata.siteTitle },
                     { name: 'twitter:site', content: '@PtrMarkiewicz' },
@@ -54,7 +54,7 @@ const HomePageLayout: React.FC<IndexLayoutProps> = ({
                 ]}
                 link={[
                 {
-                    href: 'https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900,400italic,700italic,900italic|Droid+Serif:400,700,400italic,700italic',
+                    href: '/css/Playfair-Display.css',
                     rel: 'stylesheet',
                     type: 'text/css'
                 }

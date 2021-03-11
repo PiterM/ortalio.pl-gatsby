@@ -27,14 +27,6 @@ const TrackHeadlineTop: React.FC<TrackHeadlineProps> = ({ textVariant, children 
     font-weight: ${textVariant.top.fontWeight};
     font-style: ${textVariant.top.fontStyle};
     text-transform: ${textVariant.top.textTransform};
-    & > div {
-      position: relative;
-      display: inline-block;
-      text-decoration: none;
-      color: ${colors.glitchyTitleEffect.main};
-      z-index: 1;
-    }
-
     .audio-item.selected & {
       color: #7f1818;
     }

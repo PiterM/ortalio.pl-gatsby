@@ -30,7 +30,7 @@ export default merge(typography, {
   },
   fonts: {
     heading: "Work Sans, serif",
-    body: "sans-serif",
+    body: "Arial, sans-serif",
     weatherForecast: 'sans-serif'
   },
   fontWeights: {

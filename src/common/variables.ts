@@ -23,11 +23,6 @@ export const colors = {
     newspaperPaperHovered: '#f3f1ea',
     newspaperText: '#2f2f2f',
     audioItemPlayerBackground: '#fff',
-    glitchyTitleEffect: {
-      main: '#2f2f2f',
-      firstAdditional: 'yellow',
-      secondAdditional: 'orange'
-    },
     mediaPlayer: {
       background: '#f9f7f1'
     }
@@ -39,7 +34,7 @@ export const colors = {
     serif: '"Playfair Display", Georgia, "Times New Roman", Times, serif',
     monospace: 'Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace, monospace',
     headline: '"Droid Serif", Georgia, "Times New Roman", Times, serif',
-    trackTitle: 'Georgia, Times, serif'
+    trackTitle: 'Georgia, Times, serif',
   }
   
   export const breakpoints = {
@@ -60,6 +55,7 @@ export const colors = {
     fontSize: {
       small: 12,
       regular: 14,
+      forecast: 16,
       large: 18,
       extraLarge: 24,
       smallTitle: 30,

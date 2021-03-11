@@ -1,9 +1,5 @@
 import * as React from 'react'
-import { connect } from 'react-redux';
 import styled from '@emotion/styled'
-import { colors, fonts } from '../../common/variables';
-import { StoreState, LayoutOptionsState } from '../../store/StoreState';
-import styles from '../../gatsby-plugin-theme-ui';
 
 const FooterCopyright = styled.div`
   text-align: center;

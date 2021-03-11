@@ -173,7 +173,7 @@ const EmbedViewIcon = styled.span(({ audioSource }: EmbedViewIconProps) => {
         top: 0,
         left: 0,
         cursor: 'pointer',
-        "@media (max-width: 1600px)": {
+        "@media (max-width: 1920px)": {
             backgroundSize: '30%'
         },
         "@media (max-width: 960px)": {
