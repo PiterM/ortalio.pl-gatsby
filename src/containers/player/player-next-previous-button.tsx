@@ -50,9 +50,10 @@ const PlayerNextPreviousButtonContainer = styled.div({
 
 interface PlayerNextPreviousButtonProps {
     mode: NextPreviousTrackMode;
+    disabled: boolean;
 }
 
-const PlayerNextPreviousTrackButton: React.FC<PlayerNextPreviousButtonProps> = ({ mode }) => {
+const PlayerNextPreviousTrackButton: React.FC<PlayerNextPreviousButtonProps> = ({ mode, disabled }) => {
     const dispatch = useDispatch();
     const swithToNeighbourTrack = () => { 
         mode === NextPreviousTrackMode.Next && dispatch(playNextTrack());
@@ -62,7 +63,7 @@ const PlayerNextPreviousTrackButton: React.FC<PlayerNextPreviousButtonProps> = (
     return (
         <PlayerNextPreviousButtonContainer>
             <NextPreviousButton 
-                onClick={swithToNeighbourTrack}
+                onClick={!disabled && swithToNeighbourTrack}
                 mode={mode}
             />
         </PlayerNextPreviousButtonContainer>

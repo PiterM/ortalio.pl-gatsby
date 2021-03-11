@@ -1,5 +1,5 @@
 import { TrackPlayStatus } from "../track/track-models";
-import { LoopMode } from './player-constants';
+import { LoopMode, TimerMode } from './player-constants';
 
 export type TracksState = any;
 
@@ -10,6 +10,7 @@ export interface CurrentTrackState {
     actionPending: boolean;
     status: TrackPlayStatus;
     progress: ProgressData;
+    errorPlaying: boolean;
 }
 
 export interface ProgressData {
@@ -23,5 +24,7 @@ export interface PlayerState {
     currentTrack?: CurrentTrackState;
     muted: boolean;
     loopMode: LoopMode;
+    timerMode: TimerMode;
     playerVisible: boolean;
+    errorPlaying: boolean;
 }

@@ -26,6 +26,7 @@ export default merge(typography, {
     trackTitle: '#e57702',
     neutral: '#dadada',
     grey: '#888',
+    newspaperPaper: '#f9f7f1',
   },
   fonts: {
     heading: "Work Sans, serif",

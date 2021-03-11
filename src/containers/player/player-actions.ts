@@ -104,6 +104,14 @@ export const setLoopMode = (): SetLoopMode => ({
     type: ACTION_TYPES.SET_LOOP_MODE,
 });
 
+export interface ToggleTimerMode {
+    type: ACTION_TYPES.TOGGLE_TIMER_MODE;
+}
+
+export const toggleTimerMode = (): ToggleTimerMode => ({
+    type: ACTION_TYPES.TOGGLE_TIMER_MODE,
+});
+
 export interface DecideWhatPlayNext {
     type: ACTION_TYPES.DECIDE_WHAT_PLAY_NEXT;
 }
@@ -153,4 +161,5 @@ export type PlayerActions =
     | PlayPreviousTrack
     | TogglePlayerVisible
     | SetCurrentTrackError
-    | TogglePlayPauseTrack;
+    | TogglePlayPauseTrack
+    | ToggleTimerMode;

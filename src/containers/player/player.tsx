@@ -30,6 +30,7 @@ import {
 import PlayerNextPreviousTrackButton from './player-next-previous-button';
 import Img from 'gatsby-image';
 import { TrackPlayStatus } from '../track/track-models';
+import { red } from '@material-ui/core/colors';
 const { useEffect, useState } = React;
 const { images, colors } = styles;
 
@@ -208,6 +209,30 @@ const TrackTitle = styled.p({
     }
 });
 
+const TrackTitleError = styled.p({
+    letterSpacing: '2px',
+    fontWeight: 900,
+    fontSize: '18px',
+    height: '100%',
+    backgroundColor: '#fff',
+    padding: '0 20px',
+    margin: 0,
+    width: '100%',
+    color: 'red',
+    display: 'table-cell',
+    verticalAlign: 'middle',
+    textAlign: 'center',
+    textDecoration: 'none',
+    transition: 'all 0.5s ease',
+    "@media (max-width: 1600px)": {
+        fontSize: '16px'
+    },
+    "@media (max-width: 1280px)": {
+        fontSize: '14px',
+        padding: 5
+    }
+});
+
 const CloseAndEmbedItems = styled.div({
     display: 'flex',
     alignItems: 'center',
@@ -241,9 +266,10 @@ const ClosePlayerIcon = styled.div({
 
 interface LoopButtonProps {
     mode: LoopMode;
+    disabled: boolean;
 }
   
-const LoopButton = styled.span(({ mode }: LoopButtonProps) => {
+const LoopButton = styled.span(({ mode, disabled }: LoopButtonProps) => {
     let icon, opacity;
     switch (mode) {
       case (LoopMode.LoopOne): 
@@ -256,6 +282,7 @@ const LoopButton = styled.span(({ mode }: LoopButtonProps) => {
       case (LoopMode.LoopAll):
         icon = images.loopAllIcon;
     }
+
     return {
         width: 72,
         height: 72,
@@ -264,7 +291,7 @@ const LoopButton = styled.span(({ mode }: LoopButtonProps) => {
         cursor: 'pointer',
         transition: 'all 0.05s ease',
         opacity,
-        ":active": {
+         ":active": {
             backgroundSize: '52% 52%'
         },
         "@media (max-width: 640px)": {
@@ -344,7 +371,7 @@ const Player: React.FC = () => {
 
     const setPlayerVisible = () => dispatch(togglePlayerVisible());
 
-    const { progress, playing, paused, actionPending } = currentTrack;
+    const { progress, playing, paused, actionPending, errorPlaying } = currentTrack;
     const playerClass = playing || paused ? 'player-visible' : undefined;
     const { 
         featuredImage: { imageFile: { childImageSharp: { fixed }}}, 
@@ -392,6 +419,7 @@ const Player: React.FC = () => {
         : playerVisibleHeight.youtubePlayerHeight;
 
     const isTrackLoading = currentTrack?.status === TrackPlayStatus.Loading;
+    const errorMessage = 'Sorry, error while streaming';
 
     return (
             <>
@@ -408,29 +436,40 @@ const Player: React.FC = () => {
                     </TrackThumbnailContainer>
 
                     <TrackTitleItem>
-                        <TrackTitle
-                            onClick={() => setWindowLocationHash(slug)}
-                        >
-                            {title}
-                        </TrackTitle>
+                        {errorPlaying 
+                            ?   <TrackTitleError>
+                                    {errorMessage}
+                                </TrackTitleError>
+                            :   <TrackTitle
+                                        onClick={() => setWindowLocationHash(slug)}
+                                    >
+                                    {title}
+                                </TrackTitle>
+                        }
                     </TrackTitleItem>
 
                     <PlayerControls>
                         <PlayerNextPreviousTrackButton 
                             mode={NextPreviousTrackMode.Previous}
+                            disabled={errorPlaying}
                         />
 
-                        <PlayerPlayPauseButton id={trackId}/>
+                        <PlayerPlayPauseButton 
+                            id={trackId}
+                            disabled={errorPlaying}
+                        />
                         
                         <PlayerNextPreviousTrackButton 
                             mode={NextPreviousTrackMode.Next}
+                            disabled={errorPlaying}
                         />
                     </PlayerControls>
 
                     <PlayerItemInline>
                         <LoopButton
                             mode={loopMode}
-                            onClick={changeLoopMode}
+                            onClick={!errorPlaying && changeLoopMode}
+                            disabled={errorPlaying}
                         />
                     </PlayerItemInline>
 
@@ -440,7 +479,7 @@ const Player: React.FC = () => {
                             elapsedTime={elapsedTime}
                             remainingTime={remainingTime}
                             loadedTime={loadedTime}
-                            disabled={actionPending}
+                            disabled={actionPending || errorPlaying}
                             volumeDisabled={actionPending || !trackInProgress}
                             muted={playerMuted || !trackInProgress}
                         />

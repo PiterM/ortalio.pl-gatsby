@@ -2,14 +2,16 @@ import { PlayerActions } from './player-actions';
 import ACTION_TYPES from './player-action-types';
 import { PlayerState, TracksState } from './player-state';
 import { TrackPlayStatus } from '../track/track-models';
-import { LoopMode } from './player-constants';
+import { LoopMode, TimerMode } from './player-constants';
 
 export const initPlayerState: PlayerState = {
     tracks: {},
     muted: false,
     currentTrack: undefined,
     loopMode: LoopMode.LoopAll,
-    playerVisible: false
+    timerMode: TimerMode.RemainingTime,
+    playerVisible: false,
+    errorPlaying: false,
 };
 
 export const playerReducer = (state: PlayerState = initPlayerState, action: PlayerActions) => {
@@ -72,6 +74,7 @@ export const playerReducer = (state: PlayerState = initPlayerState, action: Play
                     playing,
                     paused,
                     actionPending,
+                    errorPlaying: false,
                     status,
                     progress,
                 }
@@ -92,6 +95,7 @@ export const playerReducer = (state: PlayerState = initPlayerState, action: Play
                 currentTrack: {
                     ...currentTrack,
                     actionPending: false,
+                    errorPlaying: false,
                     status
                 }
             };
@@ -110,6 +114,7 @@ export const playerReducer = (state: PlayerState = initPlayerState, action: Play
                     playing: !currentTrack.playing,
                     paused: !currentTrack.paused,
                     actionPending: false,
+                    errorPlaying: true,
                     status
                 }
             };
@@ -170,6 +175,17 @@ export const playerReducer = (state: PlayerState = initPlayerState, action: Play
                 ...state,
                 muted: !state.muted
             }; 
+
+        case (ACTION_TYPES.TOGGLE_TIMER_MODE):
+            const { timerMode } = state;
+            const mode = timerMode === TimerMode.ElapsedTime 
+                ? TimerMode.RemainingTime 
+                : TimerMode.ElapsedTime;
+
+            return {
+                ...state,
+                timerMode: mode
+            };             
             
         case (ACTION_TYPES.TOGGLE_PLAY_PAUSE_TRACK):
             if (!currentTrack) {

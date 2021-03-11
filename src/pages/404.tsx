@@ -1,10 +1,5 @@
-import * as React from 'react'
+import * as React from 'react';
+import ErrorPage from './ErrorPage';
 
-const NotFoundPage = () => (
-  <div>
-    <h1>NOT FOUND</h1>
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
-  </div>
-)
-
-export default NotFoundPage
+export const Page404: React.FC = (() => <ErrorPage description="Sorry. There is no such URL." backUrl="/" />);
+export default Page404;

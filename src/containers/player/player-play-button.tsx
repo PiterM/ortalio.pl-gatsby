@@ -20,16 +20,19 @@ const PlayPauseButtonContainer = styled.div({
 
 interface PlayerPlayPauseButtonProps {
     id: string;
+    disabled: boolean;
 }
 
-const PlayerPlayPauseButton: React.FC<PlayerPlayPauseButtonProps> = ({ id }) => {
+const PlayerPlayPauseButton: React.FC<PlayerPlayPauseButtonProps> = ({ id, disabled }) => {
     const dispatch = useDispatch();
     const { status } = useSelector(getCurrentTrack);
 
     return (
         <PlayPauseButtonContainer>
             <PlayPauseButton 
-                onClick={() => status !== TrackPlayStatus.Loading && dispatch(playPauseTrack(id))}
+                onClick={() => status !== TrackPlayStatus.Loading 
+                                    && !disabled
+                                    && dispatch(playPauseTrack(id))}
                 trackStatus={status}
                 blink={status === TrackPlayStatus.Paused}
             />
