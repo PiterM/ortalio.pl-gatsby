@@ -24,6 +24,9 @@ export const screenParamsReducer = (
   ): ScreenParameters => {
   switch (action.type) {
     case ACTION_TYPES.SET_SCREEN_PARAMS:
+      if (typeof window === undefined) {
+        return state;
+      }
 
       const orientation = window.orientation !== undefined 
         ? Math.abs(window.orientation as number)

@@ -28,7 +28,9 @@ const HomePageLayout: React.FC<IndexLayoutProps> = ({
     ));
 
     let thumbnailUrl = siteThumbnailData?.imageFile?.childImageSharp?.fixed?.src;
-    thumbnailUrl = thumbnailUrl ? `${window.location}${thumbnailUrl.substring(1)}`: undefined;
+    thumbnailUrl = thumbnailUrl 
+        ? typeof window !== undefined && `${window.location}${thumbnailUrl.substring(1)}`
+        : undefined;
 
     return (
         <RootLayout
