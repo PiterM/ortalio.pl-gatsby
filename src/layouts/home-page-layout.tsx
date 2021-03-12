@@ -27,10 +27,11 @@ const HomePageLayout: React.FC<IndexLayoutProps> = ({
         }
     ));
 
-    let thumbnailUrl = siteThumbnailData?.imageFile?.childImageSharp?.fixed?.src;
-    thumbnailUrl = thumbnailUrl 
-        ? typeof window !== 'undefined' && `${window.location}${thumbnailUrl.substring(1)}`
-        : undefined;
+    // let thumbnailUrl = siteThumbnailData?.imageFile?.childImageSharp?.fixed?.src;
+    // thumbnailUrl = thumbnailUrl 
+    //     ? typeof window !== 'undefined' && `${window.location}${thumbnailUrl.substring(1)}`
+    //     : undefined;
+    const thumbnailUrl = 'https://ortalio.pl/static/images/ortalio.pl.jpg';
 
     return (
         <RootLayout
