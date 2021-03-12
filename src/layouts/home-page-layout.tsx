@@ -42,7 +42,7 @@ const HomePageLayout: React.FC<IndexLayoutProps> = ({
                 meta={[
                     { name: 'description', content: siteMetadata.metaDescription },
                     { name: 'keywords', content: siteMetadata.metaKeywords },
-                    { property: 'og:title', content: siteMetadata.metaDescription },
+                    { property: 'og:title', content: siteMetadata.metaTitle },
                     { property: 'og:description', content: siteMetadata.metaDescription },
                     { property: 'og:image', content: thumbnailUrl },
                     { property: 'og:url', content: 'https://ortalio.pl' },
@@ -52,7 +52,7 @@ const HomePageLayout: React.FC<IndexLayoutProps> = ({
                     { name: 'twitter:image', content: thumbnailUrl },
                     { name: 'twitter:image:alt', content: siteMetadata.siteTitle },
                     { name: 'twitter:site', content: '@PtrMarkiewicz' },
-                    { name: 'twitter:title', content: siteMetadata.siteTitle },
+                    { name: 'twitter:title', content: siteMetadata.metaTitle },
                     { name: 'twitter:description', content: siteMetadata.metaDescription },
                 ]}
                 link={[
