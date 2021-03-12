@@ -19,7 +19,7 @@ export default `
 
   body {
     overflow-y: scroll;
-    font-family: ${fonts.serif};
+    font-family: ${fonts.sansSerif};
     font-size: ${dimensions.fontSize.regular};
     color: ${colors.newspaperText};
     background-color: ${colors.newspaperPaper} !important;
