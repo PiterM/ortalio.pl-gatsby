@@ -72,13 +72,13 @@ const HomePage: React.FC<HomePageProps> = ({
     useEffect(() => {
         document.addEventListener("keydown", onKeyDown);
         document.addEventListener("keyup", onKeyUp);
-        typeof window !== undefined && window.addEventListener("resize", onWindowResize);
+        window !== undefined && window.addEventListener("resize", onWindowResize);
         dispatch(setScreenParams());
         
         return () => {
             document.removeEventListener('keydown', onKeyDown);
             document.removeEventListener('keyup', onKeyUp);
-            typeof window !== undefined && window.removeEventListener('resize', onWindowResize);
+            window !== undefined && window.removeEventListener('resize', onWindowResize);
         }
     }, []);
 

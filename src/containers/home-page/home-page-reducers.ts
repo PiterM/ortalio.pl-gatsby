@@ -24,7 +24,7 @@ export const screenParamsReducer = (
   ): ScreenParameters => {
   switch (action.type) {
     case ACTION_TYPES.SET_SCREEN_PARAMS:
-      if (typeof window === undefined) {
+      if (window === undefined) {
         return state;
       }
 
