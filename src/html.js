@@ -2,14 +2,6 @@ import React from "react"
 import PropTypes from "prop-types"
 
 export default function HTML(props) {
-  const ga = () => {
-    if (typeof window !== 'undefined') {
-        window.dataLayer = window.dataLayer || []
-        function gtag(){dataLayer.push(arguments)}
-        gtag('js', new Date())
-        gtag('config', 'UA-148290866-1');
-    }
-  }
   return (
     <html {...props.htmlAttributes}>
       <head>
@@ -20,6 +12,8 @@ export default function HTML(props) {
           content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         {props.headComponents}
+        <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/images/favicon.ico" type="image/x-icon" /> 
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-148290866-1"></script>
       </head>
       <body {...props.bodyAttributes}>
@@ -30,7 +24,12 @@ export default function HTML(props) {
           dangerouslySetInnerHTML={{ __html: props.body }}
         />
         {props.postBodyComponents}
-        {ga()}
+        <script>
+            {`window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-148290866-1');`}
+        </script>
       </body>
     </html>
   )
