@@ -316,10 +316,9 @@ const Player: React.FC = () => {
     const soundcloudUrl = currentTrack?.details?.soundcloudUrl;
     const youtubeUrl = currentTrack?.details?.youtubeUrl;
     const audioSource = soundcloudUrl && !youtubeUrl ? AudioSource.Soundcloud : AudioSource.Youtube;
-        //soundcloudUrl || youtubeUrl;
     const previewUrl = audioSource === AudioSource.Soundcloud
-        ? 'https://soundcloud.com/ortaliomusic/evening-dub-cinematic-groovy'
-        : 'https://www.youtube.com/watch?v=RACfJZpRM2w';
+        ? soundcloudUrl
+        : youtubeUrl;
 
     const trackId = currentTrack?.details?.id;
     const seeking = currentTrack?.progress?.seeking;
