@@ -31,7 +31,7 @@ const HomePageLayout: React.FC<IndexLayoutProps> = ({
     // thumbnailUrl = thumbnailUrl 
     //     ? typeof window !== 'undefined' && `${window.location}${thumbnailUrl.substring(1)}`
     //     : undefined;
-    const thumbnailUrl = 'https://ortalio.pl/static/images/ortalio.pl.jpg';
+    const thumbnailUrl = 'https://ortalio.pl/images/ortalio.pl.jpg';
 
     return (
         <RootLayout
