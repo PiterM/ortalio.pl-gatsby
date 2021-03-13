@@ -33,7 +33,7 @@ export const getLayoutMode = ({ screen }: StoreState) => {
     const resolution = screen && screen[screen?.orientation];
 
     if (!resolution || !resolution.height || !resolution.width) {
-        return LayoutModes.Extended;
+        return LayoutModes.Mobile;
     }
 
     if (resolution.width <= 600) {

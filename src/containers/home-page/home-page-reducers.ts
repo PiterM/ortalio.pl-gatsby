@@ -1,7 +1,7 @@
-import { LayoutModes, WindowOrientation } from '../../common/constants';
+import { WindowOrientation } from '../../common/constants';
 import { GraphNode, ScreenParameters } from '../../common/models';
 import ACTION_TYPES from './home-page-action-types';
-import { LayoutOptionsState, ItemsGraphState } from './home-page-state';
+import { ItemsGraphState } from './home-page-state';
 import { AnyAction } from 'redux';
 
 export const keyDownInitState: number | null = null;
