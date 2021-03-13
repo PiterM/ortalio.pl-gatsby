@@ -16,7 +16,9 @@ export default merge(typography, {
     soundcloudLogo: '/images/soundcloud-logo.png',
     youtubeLogo: '/images/youtube-logo.png',
     playIndicator: '/images/play-indicator.svg',
-    sandClock: 'images/sand-clock.svg'
+    sandClock: '/images/sand-clock.svg',
+    siteThumbnail: '/images/ortalio.pl.jpg',
+    error404Icon: '/images/error-404-icon.svg'
   },
   colors: {
     text: "rgb(0,0,0,0.75)",

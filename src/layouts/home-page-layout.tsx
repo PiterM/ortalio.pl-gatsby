@@ -6,16 +6,16 @@ import PageLayout from './page-layout'
 import 'modern-normalize'
 import '../common/normalize'
 import { MetaData } from '../containers/home-page/home-page.models';
+import styles from '../gatsby-plugin-theme-ui';
+const { images } = styles;
 
 interface IndexLayoutProps {
   siteMetadata: MetaData;
-  siteThumbnailData: any;
   className: string;
 }
 
 const HomePageLayout: React.FC<IndexLayoutProps> = ({
     siteMetadata,
-    siteThumbnailData,
     className,
     children 
 }) => { 
@@ -27,11 +27,7 @@ const HomePageLayout: React.FC<IndexLayoutProps> = ({
         }
     ));
 
-    // let thumbnailUrl = siteThumbnailData?.imageFile?.childImageSharp?.fixed?.src;
-    // thumbnailUrl = thumbnailUrl 
-    //     ? typeof window !== 'undefined' && `${window.location}${thumbnailUrl.substring(1)}`
-    //     : undefined;
-    const thumbnailUrl = 'https://ortalio.pl/images/ortalio.pl.jpg';
+    const thumbnailUrl = `https://ortalio.pl${images.siteThumbnail}`;
 
     return (
         <RootLayout

@@ -23,7 +23,6 @@ const IndexPage: React.FC<IndexPageProps> = ({ pageContext: { data } }: any) => 
   return (
     <HomePage 
       siteMetadata={data?.ortalioSettingBy?.ortalioSettingsField}
-      siteThumbnailData={data?.ortalioSettingBy?.featuredImage?.node}
       socialMediaData={data?.ortalioSocialMedias?.edges}
     />
   );

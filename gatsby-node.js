@@ -93,21 +93,6 @@ exports.createPages = async ({ page, graphql, actions, reporter }) => {
             siteIntro
             siteTitle
           }
-          featuredImage {
-            node { 
-              sourceUrl
-              imageFile {
-                childImageSharp {
-                  fixed(width: 2048, height: 1152) {
-                    width
-                    height
-                    src
-                    srcSet
-                  }
-                }
-              }
-            }
-          }
         }
         ortalioSocialMedias(first:20) {
           edges {

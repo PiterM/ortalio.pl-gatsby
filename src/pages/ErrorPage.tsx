@@ -2,7 +2,7 @@ import * as React from 'react';
 import Link from 'gatsby-link';
 import styled from '@emotion/styled';
 import styles from '../gatsby-plugin-theme-ui';
-const { colors } = styles;
+const { colors, images } = styles;
 
 const ErrorScreen = styled.div({
     width: '100%',
@@ -15,7 +15,7 @@ const ErrorScreen = styled.div({
 });
 
 const ErrorMessage = styled.div`
-    background: url('/images/error-icon.svg') top center no-repeat ${colors.newspaperPaper};
+    background: url('${images.error404Icon}') top center no-repeat ${colors.newspaperPaper};
     width: 500px;;
     height: 100px;
     & > p.link {
@@ -28,7 +28,7 @@ const ErrorMessage = styled.div`
     }
 
     & > p.description {
-        margin-top: 80px;
+        margin-top: 110px;
         margin-bottom: 0;
         font-size: 16px;
         text-align: center;

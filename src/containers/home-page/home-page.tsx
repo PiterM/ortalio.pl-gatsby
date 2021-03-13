@@ -51,7 +51,6 @@ const NoTracksInfo = styled.p({
 interface HomePageProps {
     socialMediaData: SocialMediaData[];
     siteMetadata: MetaData;
-    siteThumbnailData: any;
 };
 
 const initKeyPressed = false;
@@ -59,7 +58,6 @@ const initKeyPressed = false;
 const HomePage: React.FC<HomePageProps> = ({ 
     siteMetadata, 
     socialMediaData,
-    siteThumbnailData,
 }) => {
     const dispatch = useDispatch();
 
@@ -101,7 +99,6 @@ const HomePage: React.FC<HomePageProps> = ({
     return (
         <HomePageLayout
             siteMetadata={siteMetadata}
-            siteThumbnailData={siteThumbnailData}
             className={`layout-${mode} columns${columnsNumber}`}
         >
             <SocialIcons
@@ -111,7 +108,8 @@ const HomePage: React.FC<HomePageProps> = ({
 
             { noTracks 
                 ?   <NoTracksInfo>Sorry. No content here yet.</NoTracksInfo>
-                :   <StyledPage 
+                :   <>
+                    <StyledPage 
                         id="main-grid"
                     >
                         <Tracks 
@@ -119,8 +117,9 @@ const HomePage: React.FC<HomePageProps> = ({
                             columnsNumber={columnsNumber}
                         /> 
                     </StyledPage>
+                    <Footer />
+                    </>
             }
-            <Footer />
         </HomePageLayout>
     );
 };
