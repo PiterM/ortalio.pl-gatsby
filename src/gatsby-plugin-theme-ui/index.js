@@ -18,7 +18,8 @@ export default merge(typography, {
     playIndicator: '/images/play-indicator.svg',
     sandClock: '/images/sand-clock.svg',
     siteThumbnail: '/images/ortalio.pl.jpg',
-    error404Icon: '/images/error-404-icon.svg'
+    error404Icon: '/images/error-404-icon.svg',
+    tracksLoaderIcon: '/images/tracks-loader.svg'
   },
   colors: {
     text: "rgb(0,0,0,0.75)",

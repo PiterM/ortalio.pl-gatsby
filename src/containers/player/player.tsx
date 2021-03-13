@@ -30,7 +30,6 @@ import {
 import PlayerNextPreviousTrackButton from './player-next-previous-button';
 import Img from 'gatsby-image';
 import { TrackPlayStatus } from '../track/track-models';
-import { red } from '@material-ui/core/colors';
 const { useEffect, useState } = React;
 const { images, colors } = styles;
 

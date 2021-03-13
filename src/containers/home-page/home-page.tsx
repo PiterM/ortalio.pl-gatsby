@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import { dimensions } from '../../common/variables';
 import { SocialMediaData, MetaData } from './home-page.models';
+import { isObjectEmpty } from '../../common/common-helpers';
 import { KeyCodes } from '../../common/constants';
 import { getTracks } from '../player/player-selectors';
 import { 
@@ -17,7 +18,9 @@ import HomePageLayout from '../../layouts/home-page-layout';
 import SocialIcons from '../../components/social-icons/social-icons';
 import Footer from '../../components/footer/footer';
 import Tracks from '../tracks/tracks';
+import styles from '../../gatsby-plugin-theme-ui';
 const { useEffect, useState } = React;
+const { images } = styles;
 
 import './home-page.scss';
 
@@ -42,11 +45,18 @@ const ListenHeader = styled.p({
     color: '#2f2f2f'
 });
 
-const NoTracksInfo = styled.p({
-    textAlign: 'center',
+const StyledTrackLoader = styled.div({
+    height: 100,
     width: '100%',
-    marginTop: 100
-});
+    marginTop: 30,
+    textAlign: 'center',
+    "& > p": {
+        background: `url('${images.tracksLoaderIcon}') center center no-repeat`,
+        backgroundSize: '100% 100%',
+        width: '100%',
+        height: '100%'
+    }
+})
 
 interface HomePageProps {
     socialMediaData: SocialMediaData[];
@@ -94,7 +104,7 @@ const HomePage: React.FC<HomePageProps> = ({
 
     const onWindowResize = () => dispatch(setScreenParams());
 
-    const noTracks = !tracks || tracks.length === 0;
+    const noTracks = isObjectEmpty(tracks);
 
     return (
         <HomePageLayout
@@ -107,7 +117,7 @@ const HomePage: React.FC<HomePageProps> = ({
             <ListenHeader>Click to play:</ListenHeader>
 
             { noTracks 
-                ?   <NoTracksInfo>Sorry. No content here yet.</NoTracksInfo>
+                ?   <StyledTrackLoader><p/></StyledTrackLoader>
                 :   <>
                     <StyledPage 
                         id="main-grid"
