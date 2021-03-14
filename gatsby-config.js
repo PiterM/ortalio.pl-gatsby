@@ -9,6 +9,7 @@ module.exports = {
   // },
   siteMetadata: {
     title: `Ortalio - Muzyka Słowa Wokal | Music Lyrics Voice`,
+    siteUrl: 'https://ortalio.pl'
   },
   plugins: [
     {
@@ -36,6 +37,13 @@ module.exports = {
     `gatsby-transformer-remark`,
     `gatsby-plugin-emotion`,
     `gatsby-plugin-sass`,
-    `gatsby-plugin-theme-ui`
+    `gatsby-plugin-theme-ui`,
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        host: 'https://ortalio.pl',
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
+    },
   ],
 }
