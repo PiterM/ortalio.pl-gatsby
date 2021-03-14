@@ -42,7 +42,8 @@ module.exports = {
       resolve: `gatsby-plugin-robots-txt`,
       options: {
         host: 'https://ortalio.pl',
-        policy: [{ userAgent: '*', allow: '/' }]
+        sitemap: null,
+        policy: [{ userAgent: '*', allow: '/', disallow: null }]
       }
     },
   ],
