@@ -30,6 +30,8 @@ export default merge(typography, {
     neutral: '#dadada',
     grey: '#888',
     newspaperPaper: '#f9f7f1',
+    closeButtonBorder: '#999',
+    white: '#fff'
   },
   fonts: {
     heading: "Work Sans, serif",

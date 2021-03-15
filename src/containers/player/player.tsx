@@ -243,6 +243,7 @@ const CloseAndEmbedItems = styled.div({
 const ClosePlayerIcon = styled.div({
     width: 30,
     height: 30,
+    padding: 10,
     background: `url('${images.closeIcon}') center center no-repeat`,
     backgroundSize: '120% 120%',
     cursor: 'pointer',
@@ -253,7 +254,7 @@ const ClosePlayerIcon = styled.div({
         backgroundSize: '65% 65%'
     },
     ":hover": {
-        borderColor: '#000'
+        borderColor: colors.closeButtonBorder
     },
     "@media (max-width: 1600px)": {
         backgroundSize: '150% 150%',
