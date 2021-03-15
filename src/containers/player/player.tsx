@@ -182,7 +182,7 @@ const EmbedViewIcon = styled.span(({ audioSource }: EmbedViewIconProps) => {
 });
 
 const TrackTitle = styled.p({
-    letterSpacing: '2px',
+    letterSpacing: '1px',
     fontWeight: 900,
     fontSize: '18px',
     height: '100%',
@@ -209,7 +209,7 @@ const TrackTitle = styled.p({
 });
 
 const TrackTitleError = styled.p({
-    letterSpacing: '2px',
+    letterSpacing: '1px',
     fontWeight: 900,
     fontSize: '18px',
     height: '100%',
