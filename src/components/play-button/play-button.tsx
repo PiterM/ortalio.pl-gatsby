@@ -15,7 +15,7 @@ export default styled.div(({ trackStatus, blink }: PlayButtonLayerProps) => {
     let size = '80%';
     let backgroundImage;
     let backgroundSize = '102% 102%';
-    let backgroundSizeLoadingActive =  '85% 85%';
+    let backgroundSizeLoadingActive =  '92% 92%';
     const animation = blink ? 'blinking 1.5s infinite' : 'none';
     
     switch (trackStatus) {
