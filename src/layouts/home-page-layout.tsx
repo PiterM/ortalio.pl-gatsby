@@ -19,14 +19,15 @@ const HomePageLayout: React.FC<IndexLayoutProps> = ({
     className,
     children 
 }) => { 
-    const description = siteMetadata.siteDescription
-        .replace('{%param%}',(new Date()).toLocaleDateString('pl-PL', {  
-            day : 'numeric',
-            month : 'long',
-            year : 'numeric'
-        }
-    ));
+    // const description = siteMetadata.siteDescription
+    //     .replace('{%param%}',(new Date()).toLocaleDateString('pl-PL', {  
+    //         day : 'numeric',
+    //         month : 'long',
+    //         year : 'numeric'
+    //     }
+    // ));
 
+    const description = siteMetadata.siteDescription;
     const thumbnailUrl = `https://ortalio.pl${images.siteThumbnail}`;
 
     return (
